@@ -1,0 +1,14 @@
+instruction schema
+
+Here is what needs to be set in JSON
+
+Maybe the ingredient tble can be used in a different way - when the recipe is saved there can be a query ran that appends the "new" ingredients to the ingredients table.
+
+    $table->increments('id');
+    $table->unsignedInteger('ingredient');
+    $table->integer('sort');
+    $table->double('amount', 8, 2);
+    $table->string('amount_desc');
+    $table->text('instruction');
+    $table->boolean('optional_step');
+    $table->timestamps();
