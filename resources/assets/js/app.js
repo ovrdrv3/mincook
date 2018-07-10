@@ -76,14 +76,9 @@ const app = new Vue({
         removeStep(sortValue){
           this.recipe.instructions.splice(sortValue - 1, 1);
           this.recipe.instructions.forEach(function(el, i){
-
-            // if the object's sort value is higher than the sortValue removed, set the value to one less than i.
-            // console.log(el);
-            if (el.sort > sortValue){
+            // re-init the values of sort
               el.sort = i + 1;
-            }
           });
-
         }
     }
 });
