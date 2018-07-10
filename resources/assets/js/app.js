@@ -21,8 +21,8 @@ var store = {
   recipe: {
         name: '',
         description: '',
-        ingredients: '',
-        instructions: [{sort: '', amount: '', do: ''}]
+        ingredients: [{amount: '' , food: ''}],
+        instructions: [{sort: '', do: ''}]
   },
   setMessageAction (newValue) {
     if (this.debug) console.log('setMessageAction triggered with', newValue)
@@ -40,7 +40,7 @@ const app = new Vue({
         recipe:{
             name: '',
             description: '',
-            ingredients: '',
+            ingredients: [{amount: '' , food: ''}],
             instructions: [{sort: 1, do: ''}]
         }
     },
@@ -53,6 +53,37 @@ const app = new Vue({
           var newObject = {"sort" : this.recipe.instructions.length + 1,
                            "do" : "" };
           this.recipe.instructions.push(newObject);
+        },
+        shiftStepUp(index){
+          // assign new sort order of the objects
+          this.recipe.instructions[index - 2].sort = index ;
+          this.recipe.instructions[index - 1].sort = index - 1;
+
+          // store the value of the step that is going to be replaced
+          var savedLine = this.recipe.instructions[index - 2];
+          // shift the array[step] up one
+          this.recipe.instructions.splice(index - 2, 2, this.recipe.instructions[index - 1]);
+          // put the original back
+          this.recipe.instructions.splice(index - 1, 0, savedLine);
+        },
+        shiftStepDown(index){
+          this.recipe.instructions[index].sort = index;
+          this.recipe.instructions[index - 1].sort = index + 1;
+          var savedLine = this.recipe.instructions[index];
+          this.recipe.instructions.splice(index - 1 , 2, this.recipe.instructions[index - 1]);
+          this.recipe.instructions.splice(index - 1, 0, savedLine);
+        },
+        removeStep(sortValue){
+          this.recipe.instructions.splice(sortValue - 1, 1);
+          this.recipe.instructions.forEach(function(el, i){
+
+            // if the object's sort value is higher than the sortValue removed, set the value to one less than i.
+            // console.log(el);
+            if (el.sort > sortValue){
+              el.sort = i + 1;
+            }
+          });
+
         }
     }
 });
