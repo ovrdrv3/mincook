@@ -75,35 +75,36 @@
                 </div>
                 <h2>Ingredients</h2>
                 <div class="form-row" v-for="ingredient in recipe.ingredients" :key="ingredient.sort">
-                          <div class="col-md-2 mb-3">
-                            <label for="amount" v-show="ingredient.sort == 1">Amount</label>
-                            <input type="text" class="form-control" v-model="ingredient.amount" placeholder="" value="ingredient.amount">
-                          </div>
-                          <div class="col-md-10 mb-3">
-                            <label for="do" v-show="ingredient.sort == 1">Food</label>
-                            <div class="input-group">
-                              <input type="text" class="form-control" v-model="ingredient.do" placeholder="" value="ingredient.amount" required>
-                            </div>
-                          </div>
+                  <div class="col-md-2 mb-3">
+                    <label for="amount" v-show="ingredient.sort == 1">Amount</label>
+                    <input type="text" class="form-control" v-model="ingredient.amount" placeholder="" value="ingredient.amount">
+                  </div>
+                  <div class="col-md-10 mb-3">
+                    <label for="do" v-show="ingredient.sort == 1">Food</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" v-model="ingredient.do" placeholder="" value="ingredient.amount" required>
+                    </div>
+                  </div>
                 </div>
                 <hr>
                 <h2>Instructions</h2>
                 <div class="form-row" v-for="instruction in recipe.instructions" :key="instruction.sort">
                          <div class="col-md-1 mb-3">
                             <label for="sort" v-show="instruction.sort == 1">Order</label>
-                            <input type="text" class="form-control" v-model="instruction.sort" placeholder="" value="instruction.sort" readonly style="background-color:transparent; border: 0; font-size: 1em;">
+                            <input type="text" class="form-control" v-model="instruction.sort" placeholder="" tabindex="-1" value="instruction.sort" readonly style="background-color:transparent; border: 0; font-size: 1em;">
                           </div>
                           <div class="col-md-10 mb-3">
                             <label for="do" v-show="instruction.sort == 1">Step</label>
                             <div class="input-group">
-                              <textarea class="form-control" v-model="instruction.do" id="do" rows="3" required></textarea>
+                              <textarea class="form-control" v-model="instruction.do" id="do" rows="1" required></textarea>
                             </div>
                           </div>
-                          <div class="col-md-1 mb-3">
+                          <div class="col-md-1 mb-3 center-text">
                             <label for="buttons" v-show="instruction.sort == 1">Change</label>
-                            <button type="button" class="btn btn-sm btn-light" @click="removeStep(instruction.sort)">remove</button>
-                            <button type="button" class="btn btn-sm btn-light" v-if="instruction.sort != 1" @click="shiftStepUp(instruction.sort)">up</button>
-                            <button type="button" class="btn btn-sm btn-light" v-if="instruction.sort != recipe.instructions.length" @click="shiftStepDown(instruction.sort)">down</button>
+                            <br v-if="instruction.sort == 1">
+                            <font-awesome-icon icon="arrow-up" v-if="instruction.sort != 1" @click="shiftStepUp(instruction.sort)" size="lg" ></font-awesome-icon>
+                            <font-awesome-icon icon="arrow-down" v-if="instruction.sort != recipe.instructions.length" @click="shiftStepDown(instruction.sort)" size="lg" ></font-awesome-icon>
+                            <font-awesome-icon icon="trash" @click="removeStep(instruction.sort)" size="lg" ></font-awesome-icon>
                           </div>
 
                 </div>
@@ -113,7 +114,6 @@
                 <div class="form-group">
                     <button class="form-control" @click.prevent="addRecipe">Submit</button>
                 </div>
-              </div>
         </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

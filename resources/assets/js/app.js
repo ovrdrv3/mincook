@@ -8,31 +8,15 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+library.add(faArrowUp, faArrowDown, faTrash);
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
-var store = {
-  debug: true,
-  recipe: {
-        name: '',
-        description: '',
-        ingredients: [{amount: '' , food: ''}],
-        instructions: [{sort: '', do: ''}]
-  },
-  setMessageAction (newValue) {
-    if (this.debug) console.log('setMessageAction triggered with', newValue)
-    this.state.message = newValue
-  },
-  clearMessageAction () {
-    if (this.debug) console.log('clearMessageAction triggered')
-    this.state.message = ''
-  }
-}
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 const app = new Vue({
     el: '#app',
@@ -53,6 +37,9 @@ const app = new Vue({
           var newObject = {"sort" : this.recipe.instructions.length + 1,
                            "do" : "" };
           this.recipe.instructions.push(newObject);
+          console.log(this.$parent.$children);
+
+
         },
         shiftStepUp(index){
           // assign new sort order of the objects
