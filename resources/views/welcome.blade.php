@@ -96,7 +96,7 @@
                           <div class="col-md-10 mb-3">
                             <label for="do" v-show="instruction.sort == 1">Step</label>
                             <div class="input-group">
-                              <textarea class="form-control" v-model="instruction.do" id="do" rows="1" required></textarea>
+                              <textarea v-focus :ref="'step'" @keydown.enter.prevent="addInstruction" @keyup.delete="removeStepWithBackspace(instruction.sort)" class="form-control" v-model="instruction.do" id="do" rows="3" required></textarea>
                             </div>
                           </div>
                           <div class="col-md-1 mb-3 center-text">

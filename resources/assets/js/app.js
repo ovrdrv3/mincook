@@ -1,10 +1,3 @@
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -18,6 +11,14 @@ library.add(faArrowUp, faArrowDown, faTrash);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
+// Register a global custom directive called `v-focus`
+Vue.directive('focus', {
+  // When the bound element is inserted into the DOM...
+  inserted: function (el) {
+    // Focus the element
+    el.focus();
+  }
+})
 const app = new Vue({
     el: '#app',
     data: {
@@ -37,9 +38,6 @@ const app = new Vue({
           var newObject = {"sort" : this.recipe.instructions.length + 1,
                            "do" : "" };
           this.recipe.instructions.push(newObject);
-          console.log(this.$parent.$children);
-
-
         },
         shiftStepUp(index){
           // assign new sort order of the objects
@@ -66,6 +64,15 @@ const app = new Vue({
             // re-init the values of sort
               el.sort = i + 1;
           });
+          let previousElement = this.$refs.step.length - 2;
+          if (previousElement >= 0) {
+            this.$refs.step[previousElement].focus();
+          }
+        },
+        removeStepWithBackspace(sortValue){
+          if (this.recipe.instructions[sortValue - 1].do == ""){
+            this.removeStep(sortValue);
+          }
         }
     }
 });
