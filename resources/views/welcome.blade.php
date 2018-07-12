@@ -77,12 +77,12 @@
                 <div class="form-row" v-for="ingredient in recipe.ingredients" :key="ingredient.sort">
                   <div class="col-md-2 mb-3">
                     <label for="amount" v-show="ingredient.sort == 1">Amount</label>
-                    <input type="text" class="form-control" v-model="ingredient.amount" placeholder="" value="ingredient.amount">
+                    <input type="text" class="form-control" v-model="ingredient.amount" placeholder="">
                   </div>
                   <div class="col-md-10 mb-3">
                     <label for="do" v-show="ingredient.sort == 1">Food</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" v-model="ingredient.do" placeholder="" value="ingredient.amount" required>
+                      <input type="text" class="form-control" v-model="ingredient.do" placeholder="" required>
                     </div>
                   </div>
                 </div>
@@ -96,7 +96,7 @@
                           <div class="col-md-10 mb-3">
                             <label for="do" v-show="instruction.sort == 1">Step</label>
                             <div class="input-group">
-                              <textarea v-focus :ref="'step'" @keydown.enter.prevent="addInstruction" @keyup.delete="removeStepWithBackspace(instruction.sort)" class="form-control" v-model="instruction.do" id="do" rows="3" required></textarea>
+                              <textarea :ref="'step'" @keydown.enter.prevent="addInstruction" @keyup.delete="removeStepWithBackspace(instruction.sort)" class="form-control" v-model="instruction.do" id="do" rows="3" required></textarea>
                             </div>
                           </div>
                           <div class="col-md-1 mb-3 center-text">

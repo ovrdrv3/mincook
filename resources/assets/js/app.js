@@ -11,14 +11,6 @@ library.add(faArrowUp, faArrowDown, faTrash);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-// Register a global custom directive called `v-focus`
-Vue.directive('focus', {
-  // When the bound element is inserted into the DOM...
-  inserted: function (el) {
-    // Focus the element
-    el.focus();
-  }
-})
 const app = new Vue({
     el: '#app',
     data: {
@@ -38,6 +30,11 @@ const app = new Vue({
           var newObject = {"sort" : this.recipe.instructions.length + 1,
                            "do" : "" };
           this.recipe.instructions.push(newObject);
+                             this.$nextTick(function () {
+    // Code that will run only after the
+    // entire view has been rendered
+          this.$refs.step[this.$refs.step.length - 1].focus();
+  })
         },
         shiftStepUp(index){
           // assign new sort order of the objects
