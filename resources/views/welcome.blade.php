@@ -73,39 +73,43 @@
                 <div class="form-group">
                     <textarea class="form-control" placeholder="Description" v-model="recipe.description"></textarea>
                 </div>
+
                 <h2>Ingredients</h2>
-                <div class="form-row" v-for="ingredient in recipe.ingredients" :key="ingredient.sort">
+
+                <div class="form-row" v-for="(ingredient, index) in recipe.ingredients" :key="ingredient.sort">
                   <div class="col-md-2 mb-3">
-                    <label for="amount" v-show="ingredient.sort == 1">Amount</label>
+                    <label for="amount" v-show="index == 0">Amount</label>
                     <input type="text" class="form-control" v-model="ingredient.amount" placeholder="">
                   </div>
                   <div class="col-md-10 mb-3">
-                    <label for="do" v-show="ingredient.sort == 1">Food</label>
+                    <label for="do" v-show="index == 0">Food</label>
                     <div class="input-group">
                       <input type="text" class="form-control" v-model="ingredient.do" placeholder="" required>
                     </div>
                   </div>
                 </div>
                 <hr>
+
                 <h2>Instructions</h2>
-                <div class="form-row" v-for="instruction in recipe.instructions" :key="instruction.sort">
-                         <div class="col-md-1 mb-3">
-                            <label for="sort" v-show="instruction.sort == 1">Order</label>
-                            <input type="text" class="form-control" v-model="instruction.sort" placeholder="" tabindex="-1" value="instruction.sort" readonly style="background-color:transparent; border: 0; font-size: 1em;">
-                          </div>
-                          <div class="col-md-10 mb-3">
-                            <label for="do" v-show="instruction.sort == 1">Step</label>
-                            <div class="input-group">
-                              <textarea :ref="'step'" @keydown.enter.prevent="addInstruction" @keyup.delete="removeStepWithBackspace(instruction.sort)" class="form-control" v-model="instruction.do" id="do" rows="3" required></textarea>
-                            </div>
-                          </div>
-                          <div class="col-md-1 mb-3 center-text">
-                            <label for="buttons" v-show="instruction.sort == 1">Change</label>
-                            <br v-if="instruction.sort == 1">
-                            <font-awesome-icon icon="arrow-up" v-if="instruction.sort != 1" @click="shiftStepUp(instruction.sort)" size="lg" ></font-awesome-icon>
-                            <font-awesome-icon icon="arrow-down" v-if="instruction.sort != recipe.instructions.length" @click="shiftStepDown(instruction.sort)" size="lg" ></font-awesome-icon>
-                            <font-awesome-icon icon="trash" @click="removeStep(instruction.sort)" size="lg" ></font-awesome-icon>
-                          </div>
+
+                <div class="form-row" v-for="(instruction, index) in recipe.instructions" :key="instruction.sort">
+                  <div class="col-md-1 mb-3">
+                    <label for="sort" v-show="index == 0">Order</label>
+                    <input type="text" class="form-control" v-model="instruction.sort" placeholder="" tabindex="-1" value="instruction.sort" readonly style="background-color:transparent; border: 0; font-size: 1em;">
+                  </div>
+                  <div class="col-md-10 mb-3">
+                    <label for="do" v-show="index == 0">Step</label>
+                    <div class="input-group">
+                      <textarea :ref="'step'" @keydown.enter.prevent="addInstruction" @keyup.delete="removeStepWithBackspace('instructions', index)" class="form-control" v-model="instruction.do" id="do" rows="3" required></textarea>
+                    </div>
+                  </div>
+                  <div class="col-md-1 mb-3 center-text">
+                    <label for="buttons" v-show="index == 0">Change</label>
+                    <br v-if="index == 0">
+                    <font-awesome-icon icon="arrow-up" v-if="index != 0" @click="shiftStepUp('instructions', index)" size="lg" ></font-awesome-icon>
+                    <font-awesome-icon icon="arrow-down" v-if="index != recipe.instructions.length - 1" @click="shiftStepDown('instructions', index)" size="lg" ></font-awesome-icon>
+                    <font-awesome-icon icon="trash" @click="removeStep('instructions', index)" size="lg" ></font-awesome-icon>
+                  </div>
 
                 </div>
                 <div class="form-group">

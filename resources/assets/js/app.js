@@ -30,46 +30,42 @@ const app = new Vue({
           var newObject = {"sort" : this.recipe.instructions.length + 1,
                            "do" : "" };
           this.recipe.instructions.push(newObject);
-                             this.$nextTick(function () {
-    // Code that will run only after the
-    // entire view has been rendered
-          this.$refs.step[this.$refs.step.length - 1].focus();
-  })
+          this.$nextTick(function () {
+            // Code that will run only after the
+            // entire view has been rendered
+            this.$refs.step[this.$refs.step.length - 1].focus();
+          })
         },
-        shiftStepUp(index){
-          // assign new sort order of the objects
-          this.recipe.instructions[index - 2].sort = index ;
-          this.recipe.instructions[index - 1].sort = index - 1;
-
+        shiftStepUp(objectKey, index){
           // store the value of the step that is going to be replaced
-          var savedLine = this.recipe.instructions[index - 2];
-          // shift the array[step] up one
-          this.recipe.instructions.splice(index - 2, 2, this.recipe.instructions[index - 1]);
-          // put the original back
-          this.recipe.instructions.splice(index - 1, 0, savedLine);
+          // shift the step up one
+          this.recipe[objectKey].splice(index - 1, 2, this.recipe[objectKey][index], this.recipe[objectKey][index - 1]);
+          this.reInitializeSort(objectKey);
         },
-        shiftStepDown(index){
-          this.recipe.instructions[index].sort = index;
-          this.recipe.instructions[index - 1].sort = index + 1;
-          var savedLine = this.recipe.instructions[index];
-          this.recipe.instructions.splice(index - 1 , 2, this.recipe.instructions[index - 1]);
-          this.recipe.instructions.splice(index - 1, 0, savedLine);
+        shiftStepDown(objectKey, index){
+          this.recipe[objectKey].splice(index, 2, this.recipe[objectKey][index + 1], this.recipe[objectKey][index]);
+          this.reInitializeSort(objectKey);
         },
-        removeStep(sortValue){
-          this.recipe.instructions.splice(sortValue - 1, 1);
-          this.recipe.instructions.forEach(function(el, i){
+        removeStep(objectKey, index){
+          this.recipe[objectKey].splice(index, 1);
+          this.reInitializeSort(objectKey);
+          // focus on the closest element
+          if (this.$refs.step.length -1 == index ) {
+            this.$refs.step[index - 1].focus();
+          } else {
+            this.$refs.step[index].focus();
+          }
+        },
+        removeStepWithBackspace(objectKey, index){
+          if (this.recipe[objectKey][index].do == ""){
+            this.removeStep(objectKey, index);
+          }
+        },
+        reInitializeSort(objectKey){
+          this.recipe[objectKey].forEach(function(el, i){
             // re-init the values of sort
               el.sort = i + 1;
           });
-          let previousElement = this.$refs.step.length - 2;
-          if (previousElement >= 0) {
-            this.$refs.step[previousElement].focus();
-          }
-        },
-        removeStepWithBackspace(sortValue){
-          if (this.recipe.instructions[sortValue - 1].do == ""){
-            this.removeStep(sortValue);
-          }
         }
     }
 });
