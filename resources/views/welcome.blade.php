@@ -76,7 +76,9 @@
 
                 <h2>Ingredients</h2>
 
-                <div class="form-row" v-for="(ingredient, index) in recipe.ingredients" :key="ingredient.sort">
+                <div class="form-row"
+                v-for="(ingredient, index) in recipe.ingredients"
+                :key="ingredient.sort">
                   <div class="col-md-2 mb-3">
                     <label for="amount" v-show="index == 0">Amount</label>
                     <input type="text" class="form-control" v-model="ingredient.amount" placeholder="">
@@ -92,7 +94,9 @@
 
                 <h2>Instructions</h2>
 
-                <div class="form-row" v-for="(instruction, index) in recipe.instructions" :key="instruction.sort">
+                <div class="form-row"
+                v-for="(instruction, index) in recipe.instructions"
+                :key="instruction.sort">
                   <div class="col-md-1 mb-3">
                     <label for="sort" v-show="index == 0">Order</label>
                     <input type="text" class="form-control" v-model="instruction.sort" placeholder="" tabindex="-1" value="instruction.sort" readonly style="background-color:transparent; border: 0; font-size: 1em;">
@@ -100,7 +104,11 @@
                   <div class="col-md-10 mb-3">
                     <label for="do" v-show="index == 0">Step</label>
                     <div class="input-group">
-                      <textarea :ref="'step'" @keydown.enter.prevent="addInstruction" @keyup.delete="removeStepWithBackspace('instructions', index)" class="form-control" v-model="instruction.do" id="do" rows="3" required></textarea>
+                      <textarea
+                      :ref="'step'"
+                      @keydown.enter.prevent="addInstruction"
+                      @keyup.delete="removeStepWithBackspace('instructions', index)"
+                      v-model="instruction.do" class="form-control" rows="3" required></textarea>
                     </div>
                   </div>
                   <div class="col-md-1 mb-3 center-text">
@@ -110,8 +118,8 @@
                     <font-awesome-icon icon="arrow-down" v-if="index != recipe.instructions.length - 1" @click="shiftStepDown('instructions', index)" size="lg" ></font-awesome-icon>
                     <font-awesome-icon icon="trash" @click="removeStep('instructions', index)" size="lg" ></font-awesome-icon>
                   </div>
-
                 </div>
+
                 <div class="form-group">
                     <button class="form-control" @click="addInstruction">Add new step</button>
                 </div>
