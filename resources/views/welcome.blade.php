@@ -99,7 +99,12 @@
                 :key="instruction.sort">
                   <div class="col-md-1 mb-3">
                     <label for="sort" v-show="index == 0">Order</label>
-                    <input type="text" class="form-control" v-model="instruction.sort" placeholder="" tabindex="-1" value="instruction.sort" readonly style="background-color:transparent; border: 0; font-size: 1em;">
+
+                    <input
+                    v-model="instruction.sort"
+                    value="instruction.sort"
+                    type="text" class="form-control" placeholder="" tabindex="-1" style="background-color:transparent; border: 0; font-size: 1em;" readonly>
+
                   </div>
                   <div class="col-md-10 mb-3">
                     <label for="do" v-show="index == 0">Step</label>
@@ -108,15 +113,25 @@
                       :ref="'step'"
                       @keydown.enter.prevent="addInstruction"
                       @keyup.delete="removeStepWithBackspace('instructions', index)"
-                      v-model="instruction.do" class="form-control" rows="3" required></textarea>
+                      v-model="instruction.do" class="form-control"
+                      rows="3" required></textarea>
                     </div>
                   </div>
                   <div class="col-md-1 mb-3 center-text">
                     <label for="buttons" v-show="index == 0">Change</label>
                     <br v-if="index == 0">
-                    <font-awesome-icon icon="arrow-up" v-if="index != 0" @click="shiftStepUp('instructions', index)" size="lg" ></font-awesome-icon>
-                    <font-awesome-icon icon="arrow-down" v-if="index != recipe.instructions.length - 1" @click="shiftStepDown('instructions', index)" size="lg" ></font-awesome-icon>
-                    <font-awesome-icon icon="trash" @click="removeStep('instructions', index)" size="lg" ></font-awesome-icon>
+
+                    <font-awesome-icon icon="arrow-up" size="lg"
+                    v-if="index != 0"
+                    @click="shiftStepUp('instructions', index)"></font-awesome-icon>
+
+                    <font-awesome-icon icon="arrow-down" size="lg"
+                    v-if="index != recipe.instructions.length - 1"
+                    @click="shiftStepDown('instructions', index)"></font-awesome-icon>
+
+                    <font-awesome-icon icon="trash" size="lg"
+                    @click="removeStep('instructions', index)"></font-awesome-icon>
+
                   </div>
                 </div>
 
