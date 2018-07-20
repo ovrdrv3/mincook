@@ -25,16 +25,30 @@ const app = new Vue({
         addRecipe() {
             axios.post('/saverecipe', this.recipe);
         },
-        addInstruction(){
+        addInstruction(focusOnLastElement){
           // Create the new object to append to the instructions array
-          var newObject = {"sort" : this.recipe.instructions.length + 1,
-                           "do" : "" };
+          var newObject = {"do" : "" };
           this.recipe.instructions.push(newObject);
-          this.$nextTick(function () {
-            // Code that will run only after the
-            // entire view has been rendered
-            this.$refs.step[this.$refs.step.length - 1].focus();
-          })
+          if (focusOnLastElement) {
+            this.$nextTick(function () {
+              // Code that will run only after the
+              // entire view has been rendered
+              this.$refs.step[this.$refs.step.length - 1].focus();
+            })
+          }
+        },
+        addIngredient(focusOnLastElement){
+          // Create the new object to append to the instructions array
+          var newObject = {"amount" : "",
+                           "food" : "" };
+          this.recipe.ingredients.push(newObject);
+          if (focusOnLastElement) {
+            this.$nextTick(function () {
+              // Code that will run only after the
+              // entire view has been rendered
+              this.$refs.amount[this.$refs.amount.length - 1].focus();
+            })
+          }
         },
         shiftStepUp(objectKey, index){
           // store the value of the step that is going to be replaced
@@ -47,18 +61,39 @@ const app = new Vue({
           this.reInitializeSort(objectKey);
         },
         removeStep(objectKey, index){
-          this.recipe[objectKey].splice(index, 1);
-          this.reInitializeSort(objectKey);
-          // focus on the closest element
-          if (this.$refs.step.length -1 == index ) {
-            this.$refs.step[index - 1].focus();
-          } else {
-            this.$refs.step[index].focus();
+          if (this.recipe[objectKey].length > 1) {
+            this.recipe[objectKey].splice(index, 1);
+            this.reInitializeSort(objectKey);
+            this.focusOnRef(objectKey, index);
           }
         },
         removeStepWithBackspace(objectKey, index){
-          if (this.recipe[objectKey][index].do == ""){
-            this.removeStep(objectKey, index);
+          if(objectKey == 'ingredients'){
+            if (this.recipe[objectKey][index].amount == "" && this.recipe[objectKey][index].food == ""){
+              this.removeStep(objectKey, index);
+            }
+          }
+          if(objectKey == 'instructions'){
+            if (this.recipe[objectKey][index].do == ""){
+              this.removeStep(objectKey, index);
+            }
+          }
+        },
+        focusOnRef(objectKey, index){
+          // focus on the closest element
+          if(objectKey == 'ingredients') {
+            if (this.$refs.ingredient.length - 1 == index ) {
+              this.$refs.ingredient[index - 1].focus();
+            } else {
+              this.$refs.ingredient[index].focus();
+            }
+          }
+          if(objectKey == 'instructions') {
+            if (this.$refs.step.length - 1 == index ) {
+              this.$refs.step[index - 1].focus();
+            } else {
+              this.$refs.step[index].focus();
+            }
           }
         },
         reInitializeSort(objectKey){
