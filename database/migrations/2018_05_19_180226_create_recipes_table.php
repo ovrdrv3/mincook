@@ -20,8 +20,9 @@ class CreateRecipesTable extends Migration
             // add this later.
             // $table->unsignedInteger('user_id')->default('1');
             // probably add something to store a photo of the recipe as well.
+            $table->longtext('ingredients');
+            $table->longtext('instructions');
             $table->string('image')->nullable();
-            $table->json('instructions');
             $table->timestamps();
         });
     }
