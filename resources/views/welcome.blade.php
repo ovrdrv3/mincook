@@ -103,6 +103,7 @@
                       type="text" class="form-control" placeholder="" required>
                     </div>
                   </div>
+
                 </div>
                 <hr>
 
@@ -118,7 +119,6 @@
                     <label for="sort" v-show="index == 0">Order</label>
 
                     <input
-                    {{-- v-model="index" --}}
                     :value="index + 1"
                     type="text" class="form-control" tabindex="-1" style="background-color:transparent; border: 0; font-size: 1em;" readonly>
 
