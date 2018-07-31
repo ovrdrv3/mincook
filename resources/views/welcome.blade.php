@@ -26,8 +26,7 @@
             }
 
             .flex-center {
-                align-items: center;
-                display: flex;
+                align-items: center;                display: flex;
                 justify-content: center;
             }
 
@@ -89,7 +88,7 @@
                     :ref="'amount'"
                     @keydown.enter="$refs.ingredient[index].focus"
                     @keyup.delete="removeStepWithBackspace('ingredients', index)"
-                    class="form-control" v-model="ingredient.amount" placeholder="">
+                    class="form-control" v-model="ingredient.amount" :placeholder="'# ' + (index + 1) + ' Amount'">
                   </div>
 
                   <div class="col-md-10 mb-3">
@@ -100,10 +99,9 @@
                       @keyup.delete="removeStepWithBackspace('ingredients', index)"
                       :ref="'ingredient'"
                       v-model="ingredient.food"
-                      type="text" class="form-control" placeholder="" required>
+                      type="text" class="form-control" :placeholder="'# ' + (index + 1) + ' Food'" required>
                     </div>
                   </div>
-
                 </div>
                 <hr>
 
