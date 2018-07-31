@@ -14,5 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/create', 'RecipeController@create');
 Route::post('/saverecipe', 'RecipeController@storeExample');

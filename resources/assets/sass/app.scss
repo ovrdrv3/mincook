@@ -1,6 +1,6 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Josefin+Slab|Sacramento");
 
 // Variables
 @import "variables";
@@ -19,4 +19,155 @@
     border-left: 50px solid transparent;
     border-right: 50px solid transparent;
     border-bottom: 100px solid black;
+}
+
+
+
+// Brought in from design concept
+
+body{
+  /*possible colors from "fresh lilac" image*/
+  /* rgb(244,239,211) #DDD8FF*/
+  /* background-color: rgb(244,239,211); */
+  background-color: rgb(189, 196, 118);
+  color: rgb(244,239,211);
+}
+
+a{
+    color: rgb(244,239,211);
+    /* need something here for when a is hovered over. */
+}
+
+h1{
+  font-size: 4em;
+}
+
+h2{
+  font-size: 3em;
+}
+
+p{
+  font-size: 1.5em;
+}
+
+.navbar{
+    /* background-color: rgb(244,239,211);  */
+    background-color: rgb(73,64,92);
+    font-size: 1.5em;
+    justify-content: left;
+}
+
+.navbar a{
+  padding-left: 20px;
+}
+
+.section{
+  background-color: rgb(119,135,55);
+  /* background-color: rgb(74,81,40); */
+  margin: 0.5em auto;
+  padding: 2em;
+  text-align: center;
+  overflow: hidden;
+  /*opacity in case we decide on a video background*/
+  /*background-color: rgba(119,135,55, 0.75);*/
+}
+
+#top-header{
+  padding: 0.5em 0em !important;
+}
+
+.primary-font{
+  font-family: 'Sacramento', cursive;
+}
+
+.dark-purple{
+    /* this is a bit darker purple. from fresh bloom color pallete */
+    /* color: rgb(135,122,150); */
+    background-color: rgb(73,64,92);
+}
+
+.light-purple{
+    /* this is a bit darker purple. from fresh bloom color pallete */
+    /* color: rgb(135,122,150); */
+    color: rgb(230, 222, 246);
+}
+
+.hidden{
+  display: none;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn .25s ease-in 1 forwards;
+}
+
+.is-paused {
+  animation-play-state: paused;
+}
+
+footer{
+    /* same as dark purple */
+    background-color: rgb(73,64,92);
+}
+
+footer a{
+    color: inherit;
+}
+
+video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  transform: translateX(-50%) translateY(-50%);
+  background-size: cover;
+  transition: 1s opacity;
+}
+
+@media (min-device-width: 640px) {
+/*@media (min-device-width: var(--breakpoint-sm)) {*/
+  #top-header{
+    width: 50%;
+  }
+  .section{
+    border-radius: 15px;
+  }
+}
+
+span{
+  display: inline-block;
+}
+
+.slide-in-animation{
+  animation: slidein infinite 10s;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slidein {
+  0% {
+    transform: translateY(300px);
+  }
+
+  25% {
+    transform: translateY(0px);
+    color: rgb(244,239,211);
+  }
+
+  90% {
+    transform: translateY(0px);
+    color: rgb(244,239,211);
+  }
+
+  100% {
+    color: #778737;
+  }
 }
