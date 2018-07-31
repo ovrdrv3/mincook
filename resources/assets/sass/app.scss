@@ -8,11 +8,6 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
-
 .arrow-up {
     width: 0;
     height: 0;
@@ -52,7 +47,7 @@ p{
 
 .navbar{
     /* background-color: rgb(244,239,211);  */
-    background-color: rgb(73,64,92);
+    background-color: $dark-purple;
     font-size: 1.5em;
     justify-content: left;
 }
@@ -62,7 +57,7 @@ p{
 }
 
 .section{
-  background-color: rgb(119,135,55);
+  background-color: $dark-green;
   /* background-color: rgb(74,81,40); */
   margin: 0.5em auto;
   padding: 2em;
@@ -83,7 +78,7 @@ p{
 .dark-purple{
     /* this is a bit darker purple. from fresh bloom color pallete */
     /* color: rgb(135,122,150); */
-    background-color: rgb(73,64,92);
+    color: $dark-purple;
 }
 
 .light-purple{
@@ -107,25 +102,11 @@ p{
 
 footer{
     /* same as dark purple */
-    background-color: rgb(73,64,92);
+    background-color: $dark-purple;
 }
 
 footer a{
     color: inherit;
-}
-
-video {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: -100;
-  transform: translateX(-50%) translateY(-50%);
-  background-size: cover;
-  transition: 1s opacity;
 }
 
 @media (min-device-width: 640px) {
