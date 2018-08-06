@@ -23,6 +23,13 @@ class RecipeController extends Controller
 
         // return back();
     }
+
+    public function index()
+    {
+        $recipes = Recipe::all();
+        return view('recipes.index', compact('recipes'));
+    }
+
     public function create()
     {
         return view('recipes.create');
