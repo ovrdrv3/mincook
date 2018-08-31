@@ -4,7 +4,7 @@ window.Vue = require('vue');
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faArrowUp, faArrowDown, faTrash);

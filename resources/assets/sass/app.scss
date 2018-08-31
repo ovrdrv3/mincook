@@ -103,6 +103,18 @@ p{
   animation-play-state: paused;
 }
 
+.recipe-item{
+  background-color: $dark-green;
+  font-size: 40px;
+  border-radius: 10px 10px 10px 10px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.recipe-item:nth-child(2n){
+  background-color: $dark-purple;
+}
+
 footer{
     /* same as dark purple */
     background-color: $dark-purple;
