@@ -6,7 +6,7 @@
 
   @foreach ($recipes as $recipe)
     <div class="recipe-item">
-        <a href="/recipe/{{ $recipe->name }}">
+        <a href="/recipe/{{ $recipe->id }}">
             <div>
                 {{ $recipe->name }}
             </div>

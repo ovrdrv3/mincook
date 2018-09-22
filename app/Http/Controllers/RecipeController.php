@@ -34,4 +34,10 @@ class RecipeController extends Controller
     {
         return view('recipes.create');
     }
+
+    public function show($id)
+    {
+        $recipe = Recipe::find($id);
+        return view('recipes.show', compact('recipe'));
+    }
 }
