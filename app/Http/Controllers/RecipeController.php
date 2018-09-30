@@ -38,6 +38,9 @@ class RecipeController extends Controller
     public function show($id)
     {
         $recipe = Recipe::find($id);
+        $recipe->decodedIngredients = json_decode($recipe->ingredients);
+        $recipe->decodedInstructions = json_decode($recipe->instructions);
+        // dd($recipe->decodedIngredients);
         return view('recipes.show', compact('recipe'));
     }
 }
