@@ -53,8 +53,9 @@ div > input{
 }
 
 .text-large {
-  font-size: 1.5em;
+  font-size: 1em;
 }
+
 
 .navbar{
     /* background-color: rgb(244,239,211);  */
@@ -140,6 +141,12 @@ footer a{
   .section{
     border-radius: 15px;
   }
+
+  .text-large {
+    font-size: 1.5em;
+    // font-weight: 600;
+  }
+
 }
 
 span{
