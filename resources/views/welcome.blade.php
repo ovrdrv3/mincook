@@ -12,7 +12,7 @@
         <p>
           Hmm, a home-cooked meal would be nice tonight. You find a recipie that seems simple, but scroll down to find a huge list of ingredients, and a complex set of instructions. Please spend some time here, and I am sure you will agree that cooking can be simple.
         </p>
-        <p><a class="" href="/recipies">browse recipies now</a></p>
+        <p><a class="" href="/recipes">browse recipies now</a></p>
       </div>
       <div class="section col-md-5 offset-md-2">
         <H2 class="primary-font">Solutions.</H2>

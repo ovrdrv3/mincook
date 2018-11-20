@@ -32,7 +32,7 @@
       @keyup.delete="removeStepWithBackspace('ingredients', index)"
       class="form-control" v-model="ingredient.amount" :placeholder="'# ' + (index + 1) + ' Amount'">
     </div>
-
+s
     <div class="col-md-10 mb-3">
       <label for="food" v-show="index == 0">Food</label>
       <div class="input-group">
