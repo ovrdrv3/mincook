@@ -14,6 +14,9 @@
   <div class="form-group">
     <input type="file" class="form-control" v-on:change="onImageChange">
   </div>
+  <div id="preview">
+    <img v-if="tempImageURL" :src="tempImageURL" class="rounded img-fluid"/>
+  </div>
 
   <h2 class="primary-font dark-purple">Ingredients</h2>
 
@@ -32,7 +35,7 @@
       @keyup.delete="removeStepWithBackspace('ingredients', index)"
       class="form-control" v-model="ingredient.amount" :placeholder="'# ' + (index + 1) + ' Amount'">
     </div>
-s
+
     <div class="col-md-10 mb-3">
       <label for="food" v-show="index == 0">Food</label>
       <div class="input-group">
@@ -110,7 +113,8 @@ s
             ingredients: [{amount: '' , food: ''}],
             instructions: [{sort: 1, do: ''}]
         },
-        image: null
+        image: null,
+        tempImageURL: null
       }
     },
     methods: {
@@ -136,8 +140,9 @@ s
                 });
         },
         onImageChange(e){
-            console.log(e.target.files[0]);
+            // console.log(e.target.files[0]);
             this.image = e.target.files[0];
+            this.tempImageURL = URL.createObjectURL(this.image);
         },
         addInstruction(focusOnLastElement){
           // Create the new object to append to the instructions array
