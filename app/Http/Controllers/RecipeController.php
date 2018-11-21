@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Recipe;
+use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
@@ -15,7 +16,7 @@ class RecipeController extends Controller
         // dd($request);
 
         // Handle File Upload
-        if($request->hasFile('cover_image')){
+        if($request->hasFile('cover_image') && $request->file('cover_image')->isValid()){
             // Get filename with the extension
             $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
             // Get just filename
@@ -63,6 +64,9 @@ class RecipeController extends Controller
         $recipe = Recipe::find($id);
         $recipe->ingredients = json_decode($recipe->ingredients);
         $recipe->instructions = json_decode($recipe->instructions);
+        $recipe->containsCustomImage = $recipe->image != "noimage.jpg";
+        $recipe->imageUrl = Storage::url('cover_images/' . $recipe->image);
+
 
         // dd($recipe->decodedIngredients);
         return view('recipes.show', compact('recipe'));

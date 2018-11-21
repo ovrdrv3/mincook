@@ -3,8 +3,9 @@
 @section('content')
 <div id="app" class="container my-5">
   <h1 class="primary-font dark-purple">{{ $recipe->name }}</h1>
-  <!-- Just an example image (@TODO replace with image URL from public) -->
-  <!-- <img src="https://cdn3.tmbi.com/toh/GoogleImages/Chicken-Piccata-with-Lemon-Sauce_EXPS_DSBZ17_26212_B01_13_5b.jpg" class="rounded img-fluid"> -->
+  @if ($recipe->containsCustomImage)
+    <img src="{{ $recipe->imageUrl }}" class="rounded img-fluid">
+  @endif
   <br>
   <br>
   <h3 class="dark-purple">Ingredients:</h3>
