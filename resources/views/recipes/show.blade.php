@@ -4,21 +4,21 @@
 <div id="app" class="container my-5">
   <h1 class="primary-font dark-purple">{{ $recipe->name }}</h1>
   @if ($recipe->containsCustomImage)
-    <img src="{{ $recipe->imageUrl }}" class="rounded img-fluid">
+    <img src="{{ $recipe->imageUrl }}" style="height: 500px;" class="rounded img-fluid">
   @endif
   <br>
   <br>
-  <h3 class="dark-purple">Ingredients:</h3>
+  <h2 class="">Ingredients:</h2>
 
   @foreach ($recipe->ingredients as $ingredient)
     <div class="row text-large">
 
-      <div class="col-4 col-lg-2 text-right dark-purple">
+      <div class="col-4 col-lg-2 text-right">
         {{ $ingredient->amount }}
 
       </div>
 
-      <div class="col-8 col-lg-10 dark-purple">
+      <div class="col-8 col-lg-10">
         {{ $ingredient->food }}
       </div>
     </div>
@@ -29,12 +29,12 @@
   @endforeach
 
   <br>
-  <h3 class="dark-purple">Instructions:</h3>
+  <h2 class="">Instructions:</h2>
 
   @foreach ($recipe->instructions as $instruction)
   <div class="row text-large">
 
-    <div class="col mb-3 dark-purple">
+    <div class="col mb-3">
       {{ $instruction->do }}
     </div>
 
