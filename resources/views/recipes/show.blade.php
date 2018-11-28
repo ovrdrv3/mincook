@@ -4,7 +4,20 @@
 <div id="app" class="container my-5">
   <h1 class="primary-font dark-purple">{{ $recipe->name }}</h1>
   @if ($recipe->containsCustomImage)
-    <img src="{{ $recipe->imageUrl }}" style="height: 500px;" class="rounded img-fluid">
+    <div class="row text-large">
+      <div class="col-lg-4" style="">
+        {{ $recipe->description }}
+        <hr>
+        <span class="dark-purple">Prep Time</span>
+        20 minutes
+        <br>
+        <span class="dark-purple">Cook Time</span>
+        10 minutes
+      </div>
+      <div class="col-lg-8 pull-right">
+        <img src="{{ $recipe->imageUrl }}" style="max-height: 800px;" class="rounded img-fluid float-right">
+      </div>
+    </div>
   @endif
   <br>
   <br>
