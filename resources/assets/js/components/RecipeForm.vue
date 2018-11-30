@@ -10,6 +10,14 @@
       <textarea class="form-control" placeholder="Description" v-model="recipe.description"></textarea>
   </div>
 
+  <div class="form-group">
+      <input class="form-control" placeholder="Cook Time" v-model="recipe.cookTime">
+  </div>
+
+  <div class="form-group">
+      <input class="form-control" placeholder="Prep Time" v-model="recipe.prepTime">
+  </div>
+
   <h2 class="primary-font dark-purple">Photo</h2>
   <div class="form-group">
     <input type="file" class="form-control" v-on:change="onImageChange">
@@ -110,6 +118,8 @@
         recipe: {
             name: '',
             description: '',
+            prepTime: '',
+            cookTime: '',
             ingredients: [{amount: '' , food: ''}],
             instructions: [{sort: 1, do: ''}]
         },
@@ -125,6 +135,8 @@
                 let formData = new FormData();
                 formData.append('cover_image', this.image);
                 formData.append('name', this.recipe.name);
+                formData.append('prepTime', this.recipe.prepTime);
+                formData.append('cookTime', this.recipe.cookTime);
                 formData.append('description', this.recipe.description);
                 formData.append('ingredients', JSON.stringify(this.recipe.ingredients));
                 formData.append('instructions', JSON.stringify(this.recipe.instructions));

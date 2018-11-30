@@ -34,6 +34,8 @@ class RecipeController extends Controller
         $recipe = Recipe::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
+            'cook_time' => $request->input('cookTime'),
+            'prep_time' => $request->input('prepTime'),
             'ingredients' => $request->input('ingredients'),
             'instructions' => $request->input('instructions'),
             'image' => $fileNameToStore

@@ -17,6 +17,8 @@ class CreateRecipesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description');
+            $table->text('cook_time');
+            $table->text('prep_time');
             // add this later.
             // $table->unsignedInteger('user_id')->default('1');
             // probably add something to store a photo of the recipe as well.

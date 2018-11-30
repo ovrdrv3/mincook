@@ -9,10 +9,10 @@
         {{ $recipe->description }}
         <hr>
         <span class="dark-purple">Prep Time</span>
-        20 minutes
+        {{ $recipe->prep_time }}
         <br>
         <span class="dark-purple">Cook Time</span>
-        10 minutes
+        {{ $recipe->cook_time }}
       </div>
       <div class="col-lg-8 pull-right">
         <img src="{{ $recipe->imageUrl }}" style="max-height: 800px;" class="rounded img-fluid float-right">
