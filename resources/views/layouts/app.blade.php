@@ -12,7 +12,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
 
     </head>
-    <body>
+    <body class="background-gradient">
       <nav id="top-nav" class="navbar">
         <a class="" href="/">home</a>
         <a class="" href="/recipes">recipes</a>

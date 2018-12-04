@@ -2,38 +2,22 @@
 
 @section('content')
 <h1 id="top-header" class="primary-font section">
-    minimal
+    minimum
     <br>
     <span id="changing-text" class="slide-in-animation">cook</span>
   </h1>
+  <hr class="dark-purple" style="border-top: 1px dotted; margin-top: 4px; margin-bottom: 4px;">
     <div class="row">
-      <div class="section col-md-5">
-        <H2 class="primary-font">Simple Cooking.</H2>
+      <div class="section container">
         <p>
-          Hmm, a home-cooked meal would be nice tonight. You find a recipie that seems simple, but scroll down to find a huge list of ingredients, and a complex set of instructions. Please spend some time here, and I am sure you will agree that cooking can be simple.
+          No, I do not want to read how your great-aunt used to make <a href="http://mincook.test/recipe/1">Good Stuff</a>. I want to cook. If you do too, welcome. You've come to the right place.
         </p>
+        <br>
+        <p>
+          We give special badges to recipes with ingredients already at home or 5 or less ingredients.
+        </p>
+        <br>
         <p><a class="" href="/recipes">browse recipies now</a></p>
-      </div>
-      <div class="section col-md-5 offset-md-2">
-        <H2 class="primary-font">Solutions.</H2>
-          <br>
-          <p>
-            Easy simple cooking, with a minimal amount of ingredients, cooking with one pan, bulk ingredients that won't go bad in your pantry. Does this sound good to you? This type of cooking is faster yet still tasty.
-        </p>
-      </div>
-      <div class="section col-md-5 offset-md-2">
-          <H2 class="primary-font">Problems.</H2>
-          <br>
-          <p>
-            Maybe you never learned how to cook, spend too much money eating out, or have minimal access to a kitchen. Give your stove top (or hot plate) some life and see how quickly these problems are eased.
-          </p>
-      </div>
-      <div class="section col-md-5 offset-md-2">
-          <H2 class="primary-font">Technique.</H2>
-          <br>
-          <p>
-            Want to cut your food prep time? Want your greens to look fancy instead of crumbled up? Improve on a few of your techniques and you'll have good looking plates in no time.
-          </p>
       </div>
       </div>
   <footer class="pt-4 my-md-5 pt-md-5 border-top light-purple">
@@ -85,7 +69,6 @@
 
 <script>
 
-
 let textArray = [ "ingredients", "space", "time", "money", "mess."];
 
 var textToChange = document.getElementById("changing-text");
@@ -98,8 +81,5 @@ function setTextContent(){
   if(currentIndex == textArray.length){currentIndex = 0}
 }
 
-
-
 </script>
-k
 @endsection

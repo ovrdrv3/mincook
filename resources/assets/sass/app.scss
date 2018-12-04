@@ -24,10 +24,11 @@ body{
   /*possible colors from "fresh lilac" image*/
   /* rgb(244,239,211) #DDD8FF*/
   /* background-color: rgb(244,239,211); */
-  background-color: rgb(189, 196, 118);
+  background: $body-bg;
   color: rgb(244,239,211);
   // font-weight: bold;
   font-size: 1.5em;
+  height: 100%;
 }
 
 a{
@@ -47,13 +48,19 @@ h2{
 }
 
 p{
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 .text-large {
   font-size: 1em;
 }
 
+.background-gradient {
+ background: -webkit-linear-gradient(left top, $body-bg, $dark-green); /* For Safari 5.1 to 6.0 */
+ background: -o-linear-gradient(bottom right, $body-bg, $dark-green); /* For Opera 11.1 to 12.0 */
+ background: -moz-linear-gradient(bottom right, $body-bg, $dark-green); /* For Firefox 3.6 to 15 */
+ background: linear-gradient(to bottom right, $body-bg, $dark-green); /* Standard syntax */
+}
 
 .navbar{
     /* background-color: rgb(244,239,211);  */
@@ -68,11 +75,11 @@ p{
 
 .section{
   background-color: $dark-green;
-  /* background-color: rgb(74,81,40); */
   margin: 0.5em auto;
   padding: 2em;
   text-align: center;
   overflow: hidden;
+  border-radius: 15px;
   /*opacity in case we decide on a video background*/
   /*background-color: rgba(119,135,55, 0.75);*/
 }
