@@ -17,7 +17,7 @@
         <a class="" href="/">home</a>
         <a class="" href="/recipes">recipes</a>
         <a class="" href="/create">new recipe</a>
-        <a class="" href="/tips">tips</a>
+        {{-- <a class="" href="/tips">tips</a> --}}
       </nav>
 
       @yield('content')

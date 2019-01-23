@@ -6,7 +6,7 @@
     <br>
     <span id="changing-text" class="slide-in-animation">cook</span>
   </h1>
-  <hr class="dark-purple" style="border-top: 1px dotted; margin-top: 4px; margin-bottom: 4px;">
+  {{-- <hr class="dark-purple" style="border-top: 1px dotted; margin-top: 4px; margin-bottom: 4px;"> --}}
     <div class="row">
       <div class="section container">
         <p>
@@ -55,7 +55,7 @@
       </div>
       <div class="row">
         <div class="col-12 col-md">
-          <small class="d-block mb-3 ">Developed by Donaven Snowden © 2018</small>
+          <small class="d-block mb-3 ">Developed by Donaven Snowden © 2019</small>
         </div>
       </div>
       </div>
