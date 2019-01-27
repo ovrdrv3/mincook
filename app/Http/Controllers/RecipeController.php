@@ -10,7 +10,7 @@ class RecipeController extends Controller
 {
     protected $fillable = [];
 
-    public function storeExample(Request $request)
+    public function store(Request $request)
     {
 
         // dd($request);
