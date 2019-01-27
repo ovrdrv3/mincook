@@ -53,6 +53,9 @@ class RecipeController extends Controller
     public function index()
     {
         $recipes = Recipe::all();
+        foreach ($recipes as $recipe) {
+            $recipe->imageUrl = Storage::url('cover_images/' . $recipe->image);
+        }
         return view('recipes.index', compact('recipes'));
     }
 

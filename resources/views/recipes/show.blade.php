@@ -3,7 +3,6 @@
 @section('content')
 <div id="app" class="container my-5">
   <h1 class="primary-font dark-purple">{{ $recipe->name }}</h1>
-  @if ($recipe->containsCustomImage)
     <div class="row text-large">
       <div class="col-lg-4" style="">
         {{ $recipe->description }}
@@ -14,11 +13,14 @@
         <span class="dark-purple">Cook Time</span>
         {{ $recipe->cook_time }}
       </div>
-      <div class="col-lg-8 pull-right">
-        <img src="{{ $recipe->imageUrl }}" style="max-height: 800px;" class="rounded img-fluid float-right">
-      </div>
+
+      @if ($recipe->containsCustomImage)
+        <div class="col-lg-8 pull-right">
+          <img src="{{ $recipe->imageUrl }}" style="max-height: 800px;" class="rounded img-fluid float-right">
+        </div>
+      @endif
+
     </div>
-  @endif
   <br>
   <br>
   <h2 class="">Ingredients:</h2>
