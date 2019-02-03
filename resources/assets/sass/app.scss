@@ -55,6 +55,10 @@ p{
   font-size: 1em;
 }
 
+.text-small {
+  font-size: 0.75em;
+}
+
 .background-gradient {
  background: -webkit-linear-gradient(left top, $body-bg, $dark-green); /* For Safari 5.1 to 6.0 */
  background: -o-linear-gradient(bottom right, $body-bg, $dark-green); /* For Opera 11.1 to 12.0 */
@@ -119,13 +123,13 @@ p{
 
 .recipe-item{
   background-color: $dark-green;
-  font-size: 40px;
+  // font-size: 40px;
   border-radius: 10px 10px 10px 10px;
-  padding: 10px;
-  margin: 10px;
-  vertical-align: middle;
-  line-height: 150px;
-  height: 150px;
+  // padding: 10px;
+  // margin: 10px;
+  // vertical-align: middle;
+  // line-height: 150px;
+  // height: 150px;
 }
 
 .recipe-item:nth-child(2n){

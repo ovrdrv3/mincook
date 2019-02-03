@@ -55,6 +55,14 @@ class RecipeController extends Controller
         $recipes = Recipe::all();
         foreach ($recipes as $recipe) {
             $recipe->imageUrl = Storage::url('cover_images/' . $recipe->image);
+            $count_of_spaces = substr_count($recipe->description, ' ');
+            if ($count_of_spaces > 20 ) {
+                // get the first 20 words of the description for the index
+                preg_match("/(?:\w+(?:\W+|$)){0,20}/", $recipe->description, $matches);
+                $recipe->short_description = $matches[0] . '...';
+            } else {
+                $recipe->short_description = $recipe->description;
+            }
         }
         return view('recipes.index', compact('recipes'));
     }
