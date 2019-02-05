@@ -9,3 +9,11 @@ minimum cook project - crowdsourced recipe site
 - php artisan migrate
 - npm install
 - npm run dev
+
+# Getting photos saved using symlink
+- php artisan storage:link
+
+# adding some fake data -
+
+- php artisan tinker
+- factory(App\Recipe::class, 10)->create();

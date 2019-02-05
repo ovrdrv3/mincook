@@ -28,12 +28,12 @@
   @foreach ($recipe->ingredients as $ingredient)
     <div class="row text-large">
 
-      <div class="col-4 col-lg-2 text-right">
+      <div class="col-4 col-lg-3 text-right">
         {{ $ingredient->amount }}
 
       </div>
 
-      <div class="col-8 col-lg-10">
+      <div class="col-8 col-lg-9">
         {{ $ingredient->food }}
       </div>
     </div>

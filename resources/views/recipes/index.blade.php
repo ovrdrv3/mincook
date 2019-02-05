@@ -6,8 +6,6 @@
   <br>
   <div class="row">
   @foreach ($recipes as $recipe)
-    @if ($loop->index % 3 == 0 )
-    @endif
       <div class="col-md-4">
         <div class="card mb-4 recipe-item">
           <img src="{{ $recipe->imageUrl }}" class="rounded" style="height: 225px;">
