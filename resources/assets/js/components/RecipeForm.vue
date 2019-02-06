@@ -3,7 +3,8 @@
   <h1 class="primary-font dark-purple">Add a new recipe</h1>
 
   <div class="form-group">
-      <input class="form-control" placeholder="Name" v-model="recipe.name">
+      <input class="form-control" :class="{ 'is-invalid': errors.name && !recipe.name }" placeholder="Name" v-model="recipe.name">
+      <div v-if="errors.name && !recipe.name" class="dark-purple form-text is-invalid">{{errors.name}}</div>
   </div>
 
   <div class="form-group">
@@ -11,11 +12,13 @@
   </div>
 
   <div class="form-group">
-      <input class="form-control" placeholder="Cook Time" v-model="recipe.cookTime">
+      <input class="form-control" :class="{ 'is-invalid': errors.cookTime && !recipe.cookTime }" placeholder="Cook Time" v-model="recipe.cookTime">
+      <div v-if="errors.cookTime && !recipe.cookTime" class="dark-purple form-text is-invalid">{{errors.cookTime}}</div>
   </div>
 
   <div class="form-group">
-      <input class="form-control" placeholder="Prep Time" v-model="recipe.prepTime">
+      <input class="form-control" :class="{ 'is-invalid': errors.prepTime && !recipe.prepTime }" placeholder="Prep Time" v-model="recipe.prepTime">
+      <div v-if="errors.prepTime && !recipe.prepTime" class="dark-purple form-text is-invalid">{{errors.prepTime}}</div>
   </div>
 
   <h2 class="primary-font dark-purple">Photo</h2>
@@ -52,8 +55,12 @@
         @keyup.delete="removeStepWithBackspace('ingredients', index)"
         :ref="'ingredient'"
         v-model="ingredient.food"
-        type="text" class="form-control" :placeholder="'# ' + (index + 1) + ' Food'" required>
+        type="text" class="form-control"
+        :placeholder="'# ' + (index + 1) + ' Food'"
+        :class="{ 'is-invalid': errors.ingredients && !recipe.ingredients[index].food }"
+        required>
       </div>
+      <div v-if="errors.ingredients && !recipe.ingredients[index].food" class="dark-purple form-text is-invalid">{{errors.ingredients}}</div>
     </div>
   </div>
   <hr>
@@ -82,8 +89,11 @@
         @keydown.enter="addInstruction(true)"
         @keyup.delete="removeStepWithBackspace('instructions', index)"
         v-model="instruction.do" class="form-control"
-        rows="3" required></textarea>
+        rows="3"
+        :class="{ 'is-invalid': errors.instructions && !recipe.instructions[index].do }"
+        required></textarea>
       </div>
+      <div v-if="errors.instructions && !recipe.instructions[index].do" class="dark-purple form-text is-invalid">{{errors.instructions}}</div>
     </div>
     <div class="col-md-1 mb-3 center-text">
       <label for="buttons" v-show="index == 0">Change</label>
@@ -106,13 +116,29 @@
 
 
   <div class="form-group">
-      <button class="form-control" @click.prevent="addRecipe">Submit</button>
+      <button class="form-control" @click="addRecipe">{{errorsPresent}}</button>
   </div>
+
 </div>
 
 </template>
 <script>
     export default {
+    computed:{
+      errorsPresent () {
+        if (this.submissionAttempt) {
+          this.formValidation();
+        }
+        for (var key in this.errors) {
+            // skip loop if the property is from prototype
+            if (!this.errors.hasOwnProperty(key)) continue;
+            // if there are any error messages present we want to return a condition of true
+            if (this.errors[key]) return 'Check above for errors - You may have missed something important!';
+        }
+        // Making it out of this loop would represent no errors found.
+        return 'Submit';
+      }
+    },
     data() {
       return {
         recipe: {
@@ -124,13 +150,26 @@
             instructions: [{sort: 1, do: ''}]
         },
         image: null,
-        tempImageURL: null
+        tempImageURL: null,
+        submissionAttempt : false,
+        errors: {
+          'name': '',
+          'prepTime': '',
+          'cookTime': '',
+          'ingredients': '',
+          'instructions': '',
+          'any' : false
+        }
       }
     },
     methods: {
         addRecipe(e) {
                 e.preventDefault();
                 let currentObj = this;
+                this.submissionAttempt = true;
+
+                var readyToProceed = this.formValidation();
+                if (!readyToProceed) { return; }
 
                 let formData = new FormData();
                 formData.append('cover_image', this.image);
@@ -145,11 +184,57 @@
                     headers: { 'content-type': 'multipart/form-data' }
                 })
                 .then(function (response) {
+                    console.log(response.data);
+                    window.location.href = response.data;
                     currentObj.success = response.data.success;
                 })
                 .catch(function (error) {
-                    currentObj.output = error;
+                    let validationMessages = error.response.data.errors;
+                    for (var message in validationMessages) {
+                        currentObj.errors[message] = 'Oops! ' + validationMessages[message];
+                    }
                 });
+        },
+        formValidation(){
+          // some quick front end validation for the fields
+          this.errors.any = false;
+          // Reset error fields
+          for(var field in this.errors){
+            this.errors[field] = '';
+          }
+          if(this.recipe.name == '' || this.recipe.prepTime == '' || this.recipe.cookTime == ''){
+            for(var field in this.recipe){
+              if(this.recipe[field] == ''){
+                if (field == 'prepTime') {
+                  this.errors[field] = 'Oops! The Prep Time field is required.';
+                }
+                if (field == 'cookTime') {
+                  this.errors[field] = 'Oops! The Cook Time field is required.';
+                }
+                if (field == 'name') {
+                  this.errors[field] = 'Oops! The Name field is required.';
+              }
+                this.errors.any = true;
+              }
+            }
+          }
+          for(var ingredient in this.recipe.ingredients){
+            if(this.recipe.ingredients[ingredient].food == ''){
+              this.errors.ingredients = 'Empty ingredient field!';
+              this.errors.any = true;
+            }
+          }
+          for(var instruction in this.recipe.instructions){
+            if(this.recipe.instructions[instruction].do == ''){
+              this.errors.instructions = 'Empty instruction!';
+              this.errors.any = true;
+            }
+          }
+          if (this.errors.any) {
+            // console.log('errors found.');
+            return false;
+          };
+          return true;
         },
         onImageChange(e){
             // console.log(e.target.files[0]);

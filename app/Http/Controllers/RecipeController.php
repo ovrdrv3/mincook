@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
 use App\Recipe;
 use Illuminate\Support\Facades\Storage;
@@ -13,7 +14,11 @@ class RecipeController extends Controller
     public function store(Request $request)
     {
 
-        // dd($request);
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'cookTime' => 'required',
+            'prepTime' => 'required',
+        ]);
 
         // Handle File Upload
         if($request->hasFile('cover_image') && $request->file('cover_image')->isValid()){
@@ -41,7 +46,7 @@ class RecipeController extends Controller
             'image' => $fileNameToStore
         ]);
 
-        return $recipe;
+        return $recipe->path();
 
         // return back();
     }
