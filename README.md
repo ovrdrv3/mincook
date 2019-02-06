@@ -13,7 +13,7 @@ minimum cook project - crowdsourced recipe site
 # Getting photos saved using symlink
 - php artisan storage:link
 
-# adding some fake data -
+# adding some fake data
 
 - php artisan tinker
 - factory(App\Recipe::class, 10)->create();
