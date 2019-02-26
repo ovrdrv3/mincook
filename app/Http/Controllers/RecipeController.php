@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use App\Recipe;
+use App\Ingredient;
 use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
@@ -45,6 +46,18 @@ class RecipeController extends Controller
             'instructions' => $request->input('instructions'),
             'image' => $fileNameToStore
         ]);
+
+        // Add all of the ingredients to the ingredients table and link them to this recipe's ID.
+        $ingredients_for_pivot = json_decode($request->input('ingredients'));
+        foreach ($ingredients_for_pivot as $ingredient) {
+            // TODO fix this later once we are able to add vegetarian option to the JSON
+            $new_ingredient = Ingredient::firstOrCreate([
+                'name' => $ingredient->food,
+                'vegetarian' => false
+            ]);
+            // Add to pivot table
+            $recipe->ingredients()->attach($new_ingredient->id);
+        }
 
         return $recipe->path();
 

@@ -12,4 +12,9 @@ class Recipe extends Model
     {
         return "/recipe/{$this->id}";
     }
+
+    public function ingredients()
+    {
+        return $this->belongsToMany('App\Ingredient');
+    }
 }
