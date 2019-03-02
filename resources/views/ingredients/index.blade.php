@@ -2,7 +2,7 @@
 
 @section('content')
 <div id="app" class="container my-5">
-  <h1 class="primary-font dark-purple">All Ingredients</h1>
+  <h1 class="primary-font dark-purple">Find Recipes by Ingredient!</h1>
   <br>
 
   @foreach ($ingredients as $ingredient)
