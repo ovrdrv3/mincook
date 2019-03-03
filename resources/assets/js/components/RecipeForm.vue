@@ -124,6 +124,24 @@
 </template>
 <script>
     export default {
+    props: {
+      // Object with a default value
+      recipe: {
+        type: Object,
+        // Object or array defaults must be returned from
+        // a factory function
+        default: function () {
+          return {
+            name: '',
+            description: '',
+            prepTime: '',
+            cookTime: '',
+            ingredients: [{amount: '' , food: ''}],
+            instructions: [{sort: 1, do: ''}]
+          }
+        }
+      }
+    },
     computed:{
       errorsPresent () {
         if (this.submissionAttempt) {
@@ -141,14 +159,7 @@
     },
     data() {
       return {
-        recipe: {
-            name: '',
-            description: '',
-            prepTime: '',
-            cookTime: '',
-            ingredients: [{amount: '' , food: ''}],
-            instructions: [{sort: 1, do: ''}]
-        },
+        recipe: this.recipe,
         image: null,
         tempImageURL: null,
         submissionAttempt : false,

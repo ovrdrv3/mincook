@@ -29,9 +29,7 @@
             <div class="col-6 col-md">
               <h5>Features</h5>
               <ul class="list-unstyled text-small">
-                <li><a class="" href="#">Cool stuff</a></li>
-                <li><a class="" href="#">Random feature</a></li>
-                <li><a class="" href="#">Team feature</a></li>
+                <li><a class="" href="/ingredients">Find recipes by ingredient</a></li>
               </ul>
             </div>
             <div class="col-6 col-md">

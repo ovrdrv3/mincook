@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div id="app" class="container my-5">
+<div class="container my-5">
   <h1 class="primary-font dark-purple">All Recipes</h1>
   <br>
   <div class="row">

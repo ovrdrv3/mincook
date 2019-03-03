@@ -26,6 +26,7 @@
                   <ul class="navbar-nav mr-auto">
                     <li><a class="" href="/">home</a></li>
                     <li><a class="" href="/recipes">recipes</a></li>
+                    <li><a class="" href="/ingredients">ingredients</a></li>
                     <li><a class="" href="/create">new recipe</a></li>
                     {{-- <li><a class="" href="/tips">tips</a></li> --}}
                   </ul>
@@ -34,11 +35,11 @@
                   <ul class="navbar-nav ml-auto">
                       <!-- Authentication Links -->
                       @guest
-                          <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
-                          <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
+                          <li><a class="" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                          <li><a class="" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                       @else
                           <li class="nav-item dropdown">
-                              <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                              <a id="navbarDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                   {{ Auth::user()->name }} <span class="caret"></span>
                               </a>
 

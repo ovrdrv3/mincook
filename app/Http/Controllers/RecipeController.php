@@ -90,6 +90,23 @@ class RecipeController extends Controller
         return view('recipes.create');
     }
 
+    public function edit($id)
+    {
+        $recipe = Recipe::find($id);
+        // dd($recipe);
+        // return $recipe;
+        $recipe->prepTime = $recipe->prep_time;
+        $recipe->cookTime = $recipe->cook_time;
+        unset($recipe->cook_time);
+        unset($recipe->prep_time);
+        $recipe->ingredients = json_decode($recipe->ingredients);
+        $recipe->instructions = json_decode($recipe->instructions);
+        $recipe->containsCustomImage = $recipe->image != "noimage.jpg";
+        $recipe->imageUrl = Storage::url('cover_images/' . $recipe->image);
+        // return $recipe;
+        return view('recipes.edit', compact('recipe'));
+    }
+
     public function show($id)
     {
         $recipe = Recipe::find($id);

@@ -17,10 +17,7 @@ class IngredientController extends Controller
     public function show($id)
     {
         $ingredient = Ingredient::find($id);
-        return $ingredient->recipes;
-        // foreach ($ingredient->recipes as $recipe) {
-
-        // }
-
+        $recipes = $ingredient->recipes;
+        return view('recipes.index', compact('recipes'));
     }
 }
