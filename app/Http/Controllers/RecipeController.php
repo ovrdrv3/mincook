@@ -14,7 +14,6 @@ class RecipeController extends Controller
 
     public function store(Request $request)
     {
-
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'cookTime' => 'required',
@@ -105,6 +104,71 @@ class RecipeController extends Controller
         $recipe->imageUrl = Storage::url('cover_images/' . $recipe->image);
         // return $recipe;
         return view('recipes.edit', compact('recipe'));
+    }
+
+    public function update(Request $request)
+    {
+        // dd($request);
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'cookTime' => 'required',
+            'prepTime' => 'required',
+        ]);
+
+        $recipe = Recipe::find($request->input('id'));
+
+        $recipeContainsCustomImage = $recipe->image != "noimage.jpg";
+
+        // Handle File Upload
+        if($request->hasFile('cover_image') && $request->file('cover_image')->isValid()){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+
+            // if original item existed, delete it, use the new image as splash now.
+            if ($recipeContainsCustomImage) {
+                Storage::delete('public/cover_images/' . $recipe->image);
+            }
+        } else {
+            // If original image provided, keep as is.
+            if ($recipeContainsCustomImage) {
+                $fileNameToStore = $recipe->image;
+            } else {
+                $fileNameToStore = 'noimage.jpg';
+            }
+        };
+
+
+        $recipe->name =  $request->input('name');
+        $recipe->description =  $request->input('description');
+        $recipe->cook_time =  $request->input('cookTime');
+        $recipe->prep_time =  $request->input('prepTime');
+        $recipe->ingredients =  $request->input('ingredients');
+        $recipe->instructions =  $request->input('instructions');
+        $recipe->image =  $fileNameToStore;
+
+        $recipe->save();
+
+        // Add all of the ingredients to the ingredients table and link them to this recipe's ID.
+        $ingredients_for_pivot = json_decode($request->input('ingredients'));
+        foreach ($ingredients_for_pivot as $ingredient) {
+            // TODO fix this later once we are able to add vegetarian option to the JSON
+            $new_ingredient = Ingredient::firstOrCreate([
+                'name' => $ingredient->food,
+                'vegetarian' => false
+            ]);
+            // Add to pivot table
+            $recipe->ingredients()->attach($new_ingredient->id);
+        }
+        // Session::flash('message', 'Successfully updated recipe!');
+        return $recipe->path();
     }
 
     public function show($id)

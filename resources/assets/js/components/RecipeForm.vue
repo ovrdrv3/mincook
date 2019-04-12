@@ -27,6 +27,7 @@
   </div>
   <div id="preview">
     <img v-if="tempImageURL" :src="tempImageURL" class="rounded img-fluid"/>
+    <img v-if="recipe.imageUrl && !tempImageURL" :src="recipe.imageUrl" class="rounded img-fluid"/>
   </div>
 
   <h2 class="primary-font dark-purple">Ingredients</h2>
@@ -137,7 +138,8 @@
             prepTime: '',
             cookTime: '',
             ingredients: [{amount: '' , food: ''}],
-            instructions: [{sort: 1, do: ''}]
+            instructions: [{sort: 1, do: ''}],
+            originalRecipe: true
           }
         }
       }
@@ -159,7 +161,7 @@
     },
     data() {
       return {
-        recipe: this.recipe,
+        // recipe: this.recipe,
         image: null,
         tempImageURL: null,
         submissionAttempt : false,
@@ -191,20 +193,42 @@
                 formData.append('ingredients', JSON.stringify(this.recipe.ingredients));
                 formData.append('instructions', JSON.stringify(this.recipe.instructions));
 
-                axios.post('/saverecipe', formData, {
-                    headers: { 'content-type': 'multipart/form-data' }
-                })
-                .then(function (response) {
-                    console.log(response.data);
-                    window.location.href = response.data;
-                    currentObj.success = response.data.success;
-                })
-                .catch(function (error) {
-                    let validationMessages = error.response.data.errors;
-                    for (var message in validationMessages) {
-                        currentObj.errors[message] = 'Oops! ' + validationMessages[message];
-                    }
-                });
+                // create POST Link - save or edit recipe?
+                if (this.recipe.originalRecipe) {
+                  axios.post('/saverecipe', formData, {
+                      headers: { 'content-type': 'multipart/form-data' }
+                  })
+                  .then(function (response) {
+                      console.log(response.data);
+                      window.location.href = response.data;
+                      currentObj.success = response.data.success;
+                  })
+                  .catch(function (error) {
+                      let validationMessages = error.response.data.errors;
+                      for (var message in validationMessages) {
+                          currentObj.errors[message] = 'Oops! ' + validationMessages[message];
+                      }
+                  });
+                } else {
+                  formData.append('id', JSON.stringify(this.recipe.id));
+                  formData.append('_method', 'PATCH'); // https://laravel.com/docs/5.8/routing#form-method-spoofing
+
+                  axios.post('/editrecipe/' + this.recipe.id, formData, {
+                      headers: { 'content-type': 'multipart/form-data' }
+                  })
+                  .then(function (response) {
+                      console.log(response.data);
+                      window.location.href = response.data;
+                      currentObj.success = response.data.success;
+                  })
+                  .catch(function (error) {
+                      let validationMessages = error.response.data.errors;
+                      for (var message in validationMessages) {
+                          currentObj.errors[message] = 'Oops! ' + validationMessages[message];
+                      }
+                  });
+                }
+
         },
         formValidation(){
           // some quick front end validation for the fields

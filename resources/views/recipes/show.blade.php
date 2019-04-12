@@ -30,15 +30,14 @@
 
       <div class="col-4 col-lg-3 text-right">
         {{ $ingredient->amount }}
-
       </div>
 
       <div class="col-8 col-lg-9">
         {{ $ingredient->food }}
       </div>
+
     </div>
-    @if ($loop->last)
-    @else
+    @if (!$loop->last)
         <hr class="dark-purple" style="border-top: dotted 1px;margin-top: 4px; margin-bottom: 4px;">
     @endif
   @endforeach
@@ -55,6 +54,16 @@
 
   </div>
   @endforeach
+  <br>
+  <div class="row text-large">
+
+      <div class="col mb-3">
+        <a href="/editrecipe/{{$recipe->id}}">Edit this recipe?</a>
+      </div>
+
+  </div>
+
 </div>
+
 
 @endsection

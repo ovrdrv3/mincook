@@ -20,6 +20,7 @@ Route::get('/recipe/{id}', 'RecipeController@show');
 Route::post('/saverecipe', 'RecipeController@store');
 Route::post('/deleterecipe', 'RecipeController@delete');
 Route::get('/editrecipe/{id}', 'RecipeController@edit');
+Route::patch('/editrecipe/{id}', 'RecipeController@update');
 
 Route::get('/ingredients', 'IngredientController@index');
 Route::get('/ingredient/{id}', 'IngredientController@show');
