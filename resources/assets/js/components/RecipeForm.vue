@@ -23,12 +23,13 @@
 
   <h2 class="primary-font dark-purple">Photo</h2>
   <div class="form-group">
-    <input type="file" class="form-control" v-on:change="onImageChange">
+    <input type="file" class="form-control" v-on:change="onImageChange" multiple>
   </div>
   <div id="preview">
-    <img v-if="tempImageURL" :src="tempImageURL" class="rounded img-fluid"/>
-    <img v-if="recipe.imageUrl && !tempImageURL" :src="recipe.imageUrl" class="rounded img-fluid"/>
+    <img v-for="image in tempImageURLList" :src="image" class="rounded img-fluid mb-3"/>
+    <img v-if="recipe.imageUrl && !tempImageURLList" :src="recipe.imageUrl" class="rounded img-fluid"/>
   </div>
+
 
   <h2 class="primary-font dark-purple">Ingredients</h2>
 
@@ -162,8 +163,9 @@
     data() {
       return {
         // recipe: this.recipe,
-        image: null,
-        tempImageURL: null,
+        images: [],
+        numberOfImages: 0,
+        tempImageURLList: [],
         submissionAttempt : false,
         errors: {
           'name': '',
@@ -185,7 +187,7 @@
                 if (!readyToProceed) { return; }
 
                 let formData = new FormData();
-                formData.append('cover_image', this.image);
+                formData.append('cover_image', this.images);
                 formData.append('name', this.recipe.name);
                 formData.append('prepTime', this.recipe.prepTime);
                 formData.append('cookTime', this.recipe.cookTime);
@@ -272,9 +274,12 @@
           return true;
         },
         onImageChange(e){
-            // console.log(e.target.files[0]);
-            this.image = e.target.files[0];
-            this.tempImageURL = URL.createObjectURL(this.image);
+            console.log(e.target.files[0]);
+            this.images = e.target.files;
+            Array.from(this.images).forEach(file => {
+              this.tempImageURLList.push(URL.createObjectURL(file))
+              console.log(file);
+            });
         },
         addInstruction(focusOnLastElement){
           // Create the new object to append to the instructions array
