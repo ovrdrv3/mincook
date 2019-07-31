@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h1 class="primary-font dark-purple">Add a new recipe</h1>
+  <h1 class="primary-font dark-purple"><span v-if="recipe.originalRecipe">Add a new recipe</span><span v-else>Edit recipe</span></h1>
 
   <div class="form-group">
       <input class="form-control" :class="{ 'is-invalid': errors.name && !recipe.name }" placeholder="Name" v-model="recipe.name">
@@ -21,13 +21,21 @@
       <div v-if="errors.prepTime && !recipe.prepTime" class="dark-purple form-text is-invalid">{{errors.prepTime}}</div>
   </div>
 
-  <h2 class="primary-font dark-purple">Photo</h2>
-  <div class="form-group">
-    <input type="file" class="form-control" v-on:change="onImageChange" multiple>
+  <h2 class="primary-font dark-purple">Photos</h2>
+  <div v-if="recipe.originalRecipe">
+    <div class="form-group">
+      <input type="file" class="form-control" v-on:change="onImageChange" multiple>
+    </div>
+    <div id="preview">
+      <img v-for="image in tempImageURLList" :src="image" class="rounded img-fluid mb-3"/>
+      <img v-if="recipe.imageUrl && !tempImageURLList" :src="recipe.imageUrl" class="rounded img-fluid"/>
+    </div>
   </div>
-  <div id="preview">
-    <img v-for="image in tempImageURLList" :src="image" class="rounded img-fluid mb-3"/>
-    <img v-if="recipe.imageUrl && !tempImageURLList" :src="recipe.imageUrl" class="rounded img-fluid"/>
+  <div v-else>
+    <div id="preview">
+      <img v-for="image in recipe.imageUrls" :src="image" class="rounded img-fluid mb-3"/>
+    </div>
+    <h2 class="primary-font dark-purple">Want different photos? Delete this recipe and start from scratch!</h2>
   </div>
 
 
@@ -162,7 +170,7 @@
     },
     data() {
       return {
-        // recipe: this.recipe,
+        recipe: this.recipe,
         images: [],
         numberOfImages: 0,
         tempImageURLList: [],
@@ -187,7 +195,12 @@
                 if (!readyToProceed) { return; }
 
                 let formData = new FormData();
-                formData.append('cover_image', this.images);
+                // Handle Multiple Image Upload
+                let i = 0;
+                Array.from(this.images).forEach(file => {
+                  formData.append('cover_images[' + i++ + ']', file)
+                });
+                // formData.append('cover_images', this.images);
                 formData.append('name', this.recipe.name);
                 formData.append('prepTime', this.recipe.prepTime);
                 formData.append('cookTime', this.recipe.cookTime);
@@ -274,11 +287,11 @@
           return true;
         },
         onImageChange(e){
-            console.log(e.target.files[0]);
+            // console.log(e.target.files[0]);
             this.images = e.target.files;
             Array.from(this.images).forEach(file => {
               this.tempImageURLList.push(URL.createObjectURL(file))
-              console.log(file);
+              // console.log(file);
             });
         },
         addInstruction(focusOnLastElement){

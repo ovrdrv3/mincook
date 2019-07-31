@@ -14,26 +14,36 @@ class RecipeController extends Controller
 
     public function store(Request $request)
     {
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'cookTime' => 'required',
             'prepTime' => 'required',
         ]);
 
-        // Handle File Upload
-        if($request->hasFile('cover_image') && $request->file('cover_image')->isValid()){
-            // Get filename with the extension
-            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('cover_image')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+
+        // The names of these photos should be stored as an array.
+        $all_cover_images = [];
+        // Handle Multiple File Upload
+        if($request->hasFile('cover_images')){
+            // Loop through all photos uploaded in request
+            foreach ($request->cover_images as $image) {
+                // Get filename with the extension
+                $filenameWithExt = $image->getClientOriginalName();
+                // Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                // Get just ext
+                $extension = $image->getClientOriginalExtension();
+                // Filename to store
+                $fileNameToStore= $filename.'_'.time().'.'.$extension;
+                // Upload Image
+                $image->storeAs('public/cover_images', $fileNameToStore);
+                // Add the name of this file to the Cover Images Array
+                array_push($all_cover_images, $fileNameToStore);
+            }
+
         } else {
-            $fileNameToStore = 'noimage.jpg';
+            array_push($all_cover_images, 'noimage.jpg');
         };
 
         $recipe = Recipe::create([
@@ -43,7 +53,7 @@ class RecipeController extends Controller
             'prep_time' => $request->input('prepTime'),
             'ingredients' => $request->input('ingredients'),
             'instructions' => $request->input('instructions'),
-            'image' => $fileNameToStore
+            'image' => json_encode($all_cover_images)
         ]);
 
         // Add all of the ingredients to the ingredients table and link them to this recipe's ID.
@@ -71,7 +81,10 @@ class RecipeController extends Controller
     {
         $recipes = Recipe::all();
         foreach ($recipes as $recipe) {
-            $recipe->imageUrl = Storage::url('cover_images/' . $recipe->image);
+            $all_images = json_decode($recipe->image);
+            // Just grab the first image in the array for display
+            $recipe->firstImage = $all_images[0];
+            $recipe->imageUrl = Storage::url('cover_images/' . $recipe->firstImage);
             $count_of_spaces = substr_count($recipe->description, ' ');
             if ($count_of_spaces > 20 ) {
                 // get the first 20 words of the description for the index
@@ -100,8 +113,12 @@ class RecipeController extends Controller
         unset($recipe->prep_time);
         $recipe->ingredients = json_decode($recipe->ingredients);
         $recipe->instructions = json_decode($recipe->instructions);
-        $recipe->containsCustomImage = $recipe->image != "noimage.jpg";
-        $recipe->imageUrl = Storage::url('cover_images/' . $recipe->image);
+        $image_URL_staging = [];
+        foreach (json_decode($recipe->image) as $image) {
+            array_push($image_URL_staging, Storage::url('cover_images/' . $image));
+        }
+        $recipe->imageUrls = $image_URL_staging;
+        $recipe->containsCustomImage = $recipe->imageUrls[0] != "noimage.jpg";
         // return $recipe;
         return view('recipes.edit', compact('recipe'));
     }
@@ -176,8 +193,15 @@ class RecipeController extends Controller
         $recipe = Recipe::find($id);
         $recipe->ingredients = json_decode($recipe->ingredients);
         $recipe->instructions = json_decode($recipe->instructions);
-        $recipe->containsCustomImage = $recipe->image != "noimage.jpg";
-        $recipe->imageUrl = Storage::url('cover_images/' . $recipe->image);
+        $image_URL_staging = [];
+        $all_images = json_decode($recipe->image);
+        $recipe->containsCustomImage = $all_images[0] != "noimage.jpg";
+        foreach ($all_images as $image) {
+            array_push($image_URL_staging, Storage::url('cover_images/' . $image));
+        }
+        $recipe->imageUrls = json_encode($image_URL_staging);
+
+        // dd($recipe->imageUrls);
 
 
         // dd($recipe->decodedIngredients);
