@@ -135,6 +135,8 @@
 <script>
     export default {
     props: {
+      userid: Number,
+
       // Object with a default value
       recipe: {
         type: Object,
@@ -201,6 +203,7 @@
                   formData.append('cover_images[' + i++ + ']', file)
                 });
                 // formData.append('cover_images', this.images);
+                formData.append('user_id',this.userid);
                 formData.append('name', this.recipe.name);
                 formData.append('prepTime', this.recipe.prepTime);
                 formData.append('cookTime', this.recipe.cookTime);

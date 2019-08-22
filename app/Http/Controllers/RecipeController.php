@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use Validator;
 use Illuminate\Http\Request;
+use App\User;
 use App\Recipe;
 use App\Ingredient;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
 
 class RecipeController extends Controller
 {
     protected $fillable = [];
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
 
     public function store(Request $request)
     {
@@ -47,6 +54,7 @@ class RecipeController extends Controller
         };
 
         $recipe = Recipe::create([
+            'user_id' => auth()->id(),
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'cook_time' => $request->input('cookTime'),
@@ -72,10 +80,10 @@ class RecipeController extends Controller
 
         // return back();
     }
-    public function image(Request $request)
-    {
-        return view('recipes.imageupload');
-    }
+    // public function image(Request $request)
+    // {
+    //     return view('recipes.imageupload');
+    // }
 
     public function index()
     {
@@ -102,9 +110,14 @@ class RecipeController extends Controller
         return view('recipes.create');
     }
 
-    public function edit($id)
+    public function edit($id, User $user)
     {
         $recipe = Recipe::find($id);
+        // dd(auth()->id());
+        // figure this one out. Maybe we can use "can(user, edit) blade directive on the show.blade.php page"
+         if (Gate::denies('update-recipe', $recipe)) {
+             return back()->with('error', "You can not edit a recipe that isn't yours!");
+         }
         // dd($recipe);
         // return $recipe;
         $recipe->prepTime = $recipe->prep_time;
@@ -163,6 +176,7 @@ class RecipeController extends Controller
         };
 
 
+        $recipe->user_id = auth()->id();
         $recipe->name =  $request->input('name');
         $recipe->description =  $request->input('description');
         $recipe->cook_time =  $request->input('cookTime');

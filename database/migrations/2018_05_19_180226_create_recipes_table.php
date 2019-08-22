@@ -19,8 +19,7 @@ class CreateRecipesTable extends Migration
             $table->text('description')->nullable();
             $table->text('cook_time');
             $table->text('prep_time');
-            // add this later.
-            // $table->unsignedInteger('user_id')->default('1');
+            $table->unsignedInteger('user_id');
             $table->longtext('ingredients');
             $table->longtext('instructions');
             $table->longtext('image');

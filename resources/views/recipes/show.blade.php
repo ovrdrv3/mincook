@@ -75,9 +75,11 @@
   <br>
   <div class="row text-large">
 
+    @if(Gate::allows('update-recipe', $recipe))
       <div class="col mb-3">
         <a href="/editrecipe/{{$recipe->id}}">Edit this recipe?</a>
       </div>
+    @endif
 
   </div>
 
