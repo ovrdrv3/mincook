@@ -28,3 +28,8 @@ Route::get('/ingredient/{id}', 'IngredientController@show');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+// Password Change Routes
+Route::get('password/change', 'ChangePasswordController@index');
+Route::post('password/change', 'ChangePasswordController@store')->name('change.password');
