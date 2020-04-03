@@ -1,20 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-<h1 id="top-header" class="primary-font section">
+<h2 id="top-header" class="primary-font section">
     minimum
     <br>
     <span id="changing-text" class="slide-in-animation">cook</span>
-  </h1>
+  </h2>
   {{-- <hr class="dark-purple" style="border-top: 1px dotted; margin-top: 4px; margin-bottom: 4px;"> --}}
     <div class="row">
       <div class="section container">
         <p>
-          No, I do not want to read how your great-aunt used to make <a href="http://mincook.test/recipe/1">Good Stuff</a>. I want to cook. If you do too, welcome. You've come to the right place.
+          Concise recipes. No stories.
         </p>
         <br>
         <p>
-          We give special badges to recipes with ingredients already at home or 5 or less ingredients.
+          We give special badges to: 
+          <br>
+            <a class="" href="#"> recipes with ingredients already at home </a>
+          <br>
+            <a class="" href="#"> recipes with 5 or less ingredients </a>
         </p>
         <br>
         <p><a class="" href="/recipes">browse recipies now</a></p>
@@ -24,7 +28,7 @@
     <div class="container">
           <div class="row">
             <div class="col-12 col-md">
-        <h2 class="primary-font">minimal <br> cook </h2>
+        <h2 class="primary-font">minimum <br> cook </h2>
             </div>
             <div class="col-6 col-md">
               <h5>Features</h5>
@@ -53,7 +57,7 @@
       </div>
       <div class="row">
         <div class="col-12 col-md">
-          <small class="d-block mb-3 ">Developed by Donaven Snowden © 2019</small>
+          <small class="d-block mb-3 ">Developed by Donaven Snowden © 2020</small>
         </div>
       </div>
       </div>

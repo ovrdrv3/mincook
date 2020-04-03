@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 Route::get('/create', 'RecipeController@create');
 Route::get('/recipes', 'RecipeController@index');
+Route::get('/recipes/{user}', 'RecipeController@userindex');
 Route::get('/recipe/{id}', 'RecipeController@show');
 Route::post('/saverecipe', 'RecipeController@store');
 Route::post('/deleterecipe', 'RecipeController@delete');

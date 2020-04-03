@@ -13,6 +13,7 @@
     <br>
     {{-- <h2>You are logged in!</h2> --}}
     <p>Logged in as: {{ Auth::user()->name }}</p>
+    <p><a href="/recipes/{{ Auth::user()->id }}">View my recipies</a></p>
     <p><a href="/password/change">Change password</a></p>
     <p>
         <a href="{{ route('logout') }}"

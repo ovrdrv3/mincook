@@ -105,6 +105,27 @@ class RecipeController extends Controller
         return view('recipes.index', compact('recipes'));
     }
 
+    public function userindex($user)
+    {
+        $recipes = Recipe::all()->where('user_id', $user);
+        $recipes->userName = User::find($user)->name;
+        foreach ($recipes as $recipe) {
+            $all_images = json_decode($recipe->image);
+            // Just grab the first image in the array for display
+            $recipe->firstImage = $all_images[0];
+            $recipe->imageUrl = Storage::url('cover_images/' . $recipe->firstImage);
+            $count_of_spaces = substr_count($recipe->description, ' ');
+            if ($count_of_spaces > 20 ) {
+                // get the first 20 words of the description for the index
+                preg_match("/(?:\w+(?:\W+|$)){0,20}/", $recipe->description, $matches);
+                $recipe->short_description = $matches[0] . '...';
+            } else {
+                $recipe->short_description = $recipe->description;
+            }
+        }
+        return view('recipes.userindex', compact('recipes'));
+    }    
+
     public function create()
     {
         return view('recipes.create');

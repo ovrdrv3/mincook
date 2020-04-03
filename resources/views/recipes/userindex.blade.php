@@ -2,7 +2,9 @@
 
 @section('content')
 <div class="container my-5">
-  <h1 class="primary-font dark-purple">All Recipes</h1>
+<h1 class="primary-font dark-purple">All Recipes</h1>
+<br>
+<h2 class="primary-font dark-purple">by {{ $recipes->userName }}</h2>
   <br>
   <div class="row">
   @foreach ($recipes as $recipe)
