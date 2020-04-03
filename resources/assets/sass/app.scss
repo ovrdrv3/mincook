@@ -1,4 +1,3 @@
-
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Josefin+Slab|Sacramento");
 
@@ -6,7 +5,7 @@
 @import "variables";
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
 .arrow-up {
     width: 0;
@@ -16,157 +15,171 @@
     border-bottom: 100px solid black;
 }
 
-
-
 // Brought in from design concept
-html{
-  height: 100%;
+html {
+    height: 100%;
 }
-body{
-  /*possible colors from "fresh lilac" image*/
-  /* rgb(244,239,211) #DDD8FF*/
-  /* background-color: rgb(244,239,211); */
-  background: $body-bg;
-  color: rgb(244,239,211);
-  // font-weight: bold;
-  font-size: 1.5em;
-  min-height: 100%;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
+body {
+    /*possible colors from "fresh lilac" image*/
+    /* rgb(244,239,211) #DDD8FF*/
+    /* background-color: rgb(244,239,211); */
+    background: $body-bg;
+    color: rgb(244, 239, 211);
+    // font-weight: bold;
+    font-size: 1.5em;
+    min-height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
 }
 
-a{
-    color: rgb(244,239,211);
+a {
+    color: rgb(244, 239, 211);
     /* need something here for when a is hovered over. */
 }
 a:hover {
-  color: rgb(244,239,211);
+    color: rgb(244, 239, 211);
 }
 
-h1{
-  font-size: 4em;
+h1 {
+    font-size: 4em;
 }
 
-h2{
-  font-size: 3em;
+h2 {
+    font-size: 3em;
 }
 
-p{
-  font-size: 1.5em;
+p {
+    font-size: 1.5em;
 }
 
 .light-green-bg {
-  background-color: $body-bg;
+    background-color: $body-bg;
 }
 
 .dark-green-bg {
-  background-color: $dark-green;
+    background-color: $dark-green;
 }
 
 .text-large {
-  font-size: 1em;
+    font-size: 1em;
 }
 
 .text-small {
-  font-size: 0.75em;
+    font-size: 0.75em;
 }
 
 .background-gradient {
- background: -webkit-linear-gradient(left top, $body-bg, $dark-green); /* For Safari 5.1 to 6.0 */
- background: -o-linear-gradient(bottom right, $body-bg, $dark-green); /* For Opera 11.1 to 12.0 */
- background: -moz-linear-gradient(bottom right, $body-bg, $dark-green); /* For Firefox 3.6 to 15 */
- background: linear-gradient(to bottom right, $body-bg, $dark-green); /* Standard syntax */
- min-height: 100%;
- background-attachment: fixed;
+    background: -webkit-linear-gradient(
+        left top,
+        $body-bg,
+        $dark-green
+    ); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(
+        bottom right,
+        $body-bg,
+        $dark-green
+    ); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(
+        bottom right,
+        $body-bg,
+        $dark-green
+    ); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(
+        to bottom right,
+        $body-bg,
+        $dark-green
+    ); /* Standard syntax */
+    min-height: 100%;
+    background-attachment: fixed;
 }
 
-.navbar{
+.navbar {
     /* background-color: rgb(244,239,211);  */
     background-color: $dark-purple;
     font-size: 1.5em;
     justify-content: left;
 }
 
-.navbar a{
-  padding-left: 20px;
+.navbar a {
+    padding-left: 20px;
 }
 
-.section{
-  background-color: $dark-green;
-  margin: 0.5em auto;
-  padding: 2em;
-  text-align: center;
-  overflow: hidden;
-  border-radius: 15px;
-  /*opacity in case we decide on a video background*/
-  /*background-color: rgba(119,135,55, 0.75);*/
+.section {
+    background-color: $dark-green;
+    margin: 0.5em auto;
+    padding: 2em;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 15px;
+    /*opacity in case we decide on a video background*/
+    /*background-color: rgba(119,135,55, 0.75);*/
 }
 
-#top-header{
-  padding: 0.5em 0em !important;
+#top-header {
+    padding: 0.5em 0em !important;
 }
 
-.primary-font{
-  font-family: 'Sacramento', cursive;
+.primary-font {
+    font-family: "Sacramento", cursive;
 }
 
-.dark-purple{
+.dark-purple {
     /* this is a bit darker purple. from fresh bloom color pallete */
     /* color: rgb(135,122,150); */
     color: $dark-purple;
 }
 
-.light-purple{
+.light-purple {
     /* this is a bit darker purple. from fresh bloom color pallete */
     /* color: rgb(135,122,150); */
     color: rgb(230, 222, 246);
 }
 
-.hidden{
-  display: none;
+.hidden {
+    display: none;
 }
 
 .fade-in {
-  opacity: 0;
-  animation: fadeIn .25s ease-in 1 forwards;
+    opacity: 0;
+    animation: fadeIn 0.25s ease-in 1 forwards;
 }
 
 .is-paused {
-  animation-play-state: paused;
+    animation-play-state: paused;
 }
 
-.recipe-item{
-  background-color: $dark-green;
-  // font-size: 40px;
-  border-radius: 10px 10px 10px 10px;
-  // padding: 10px;
-  // margin: 10px;
-  // vertical-align: middle;
-  // line-height: 150px;
-  // height: 150px;
+.recipe-item {
+    background-color: $dark-green;
+    // font-size: 40px;
+    border-radius: 10px 10px 10px 10px;
+    // padding: 10px;
+    // margin: 10px;
+    // vertical-align: middle;
+    // line-height: 150px;
+    // height: 150px;
 }
 
-.recipe-item:nth-child(2n){
-  background-color: $dark-purple;
+.recipe-item:nth-child(2n) {
+    background-color: $dark-purple;
 }
 
-footer{
+footer {
     /* same as dark purple */
     background-color: $dark-purple;
 }
 
-footer a{
+footer a {
     color: inherit;
 }
 
 @mixin placeholderSettings {
-font-size: 1.25em;
-color: $dark-purple;
+    font-size: 1.25em;
+    color: $dark-purple;
 }
 .form-control {
-  @include placeholderSettings;
+    @include placeholderSettings;
 }
 // .form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
 //   @include placeholderSettings;
@@ -182,51 +195,50 @@ color: $dark-purple;
 // }
 
 @media (min-device-width: 640px) {
-/*@media (min-device-width: var(--breakpoint-sm)) {*/
-  #top-header{
-    width: 50%;
-  }
-  .section{
-    border-radius: 15px;
-  }
+    /*@media (min-device-width: var(--breakpoint-sm)) {*/
+    #top-header {
+        width: 50%;
+    }
+    .section {
+        border-radius: 15px;
+    }
 
-  .text-large {
-    font-size: 1.5em;
-    // font-weight: 600;
-  }
-
+    .text-large {
+        font-size: 1.5em;
+        // font-weight: 600;
+    }
 }
 
-span{
-  display: inline-block;
+span {
+    display: inline-block;
 }
 
-.slide-in-animation{
-  animation: slidein infinite 10s;
+.slide-in-animation {
+    animation: slidein infinite 10s;
 }
 
 @keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes slidein {
-  0% {
-    transform: translateY(300px);
-  }
+    0% {
+        transform: translateY(300px);
+    }
 
-  25% {
-    transform: translateY(0px);
-    color: rgb(244,239,211);
-  }
+    25% {
+        transform: translateY(0px);
+        color: rgb(244, 239, 211);
+    }
 
-  90% {
-    transform: translateY(0px);
-    color: rgb(244,239,211);
-  }
+    90% {
+        transform: translateY(0px);
+        color: rgb(244, 239, 211);
+    }
 
-  100% {
-    color: #778737;
-  }
+    100% {
+        color: #778737;
+    }
 }

@@ -48,6 +48,17 @@
       >{{errors.prepTime}}</div>
     </div>
 
+    <div class="form-group">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" v-model="recipe.vegetarian" />
+        <label class="form-check-label">Vegetarian?</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" v-model="recipe.vegan" />
+        <label class="form-check-label">Vegan?</label>
+      </div>
+    </div>
+
     <h2 class="primary-font dark-purple">Photos</h2>
     <div v-if="recipe.originalRecipe">
       <div class="form-group">
@@ -197,6 +208,8 @@ export default {
       default: function() {
         return {
           name: "",
+          vegetarian: "",
+          vegan: "",
           description: "",
           prepTime: "",
           cookTime: "",
@@ -260,6 +273,8 @@ export default {
       // formData.append('cover_images', this.images);
       formData.append("user_id", this.userid);
       formData.append("name", this.recipe.name);
+      formData.append("vegetarian", this.recipe.vegetarian ? 1 : 0);
+      formData.append("vegan", +this.recipe.vegan ? 1 : 0);
       formData.append("prepTime", this.recipe.prepTime);
       formData.append("cookTime", this.recipe.cookTime);
       formData.append("description", this.recipe.description);
@@ -447,6 +462,12 @@ export default {
         // re-init the values of sort
         el.sort = i + 1;
       });
+    }
+  },
+  beforeUpdate: function() {
+    // Force set Vegetarian to True
+    if (this.recipe.vegan) {
+      this.recipe.vegetarian = true;
     }
   }
 };

@@ -56,6 +56,8 @@ class RecipeController extends Controller
         $recipe = Recipe::create([
             'user_id' => auth()->id(),
             'name' => $request->input('name'),
+            'vegetarian' => $request->input('vegetarian'),
+            'vegan' => $request->input('vegan'),
             'description' => $request->input('description'),
             'cook_time' => $request->input('cookTime'),
             'prep_time' => $request->input('prepTime'),
@@ -199,6 +201,8 @@ class RecipeController extends Controller
 
         $recipe->user_id = auth()->id();
         $recipe->name =  $request->input('name');
+        $recipe->vegetarian =  $request->input('vegetarian');
+        $recipe->vegan =  $request->input('vegan');
         $recipe->description =  $request->input('description');
         $recipe->cook_time =  $request->input('cookTime');
         $recipe->prep_time =  $request->input('prepTime');

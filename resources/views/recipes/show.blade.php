@@ -4,7 +4,7 @@
 <div id="app" class="container my-5">
   <h1 class="primary-font dark-purple">{{ $recipe->name }}</h1>
     @if ($recipe->containsCustomImage)
-    <div class="row text-large" style="height: 800px;">
+    <div class="row text-large">
       <div class="col-lg-4" style="">
         {{ $recipe->description }}
         <hr>
@@ -13,6 +13,21 @@
         <br>
         <span class="dark-purple">Cook Time</span>
         {{ $recipe->cook_time }}
+        <br>
+        <span class="dark-purple">Vegetarian</span>
+        @if ($recipe->vegetarian)
+          &#x2714;
+        @else
+          &#x2716;
+        @endif
+        <br>
+        <span class="dark-purple">Vegan</span>
+        @if ($recipe->vegan)
+            &#x2714;
+        @else
+          &#x2716;
+        @endif
+
       </div>
 
 
@@ -20,7 +35,7 @@
 {{--           @foreach ($recipe->imageUrls as $imageUrl)
             <img src="{{ $imageUrl }}"  class="rounded img-fluid float-right mb-3">
           @endforeach --}}
-          <image-slider :images="{{$recipe->imageUrls}}" style="max-height: 800px;" class="rounded img-fluid mb-3"></image-slider>
+          <image-slider :images="{{$recipe->imageUrls}}" style="max-height: 800px; max-width: 800px;" class="rounded img-fluid mb-3"></image-slider>
         </div>
     </div>
       @else
@@ -34,6 +49,21 @@
           <br>
           <span class="dark-purple">Cook Time</span>
           {{ $recipe->cook_time }}
+          <br>
+          <span class="dark-purple">Vegetarian</span>
+          @if ($recipe->vegetarian)
+            &#x2714;
+          @else
+            &#x2716;
+          @endif
+          <br>
+          <span class="dark-purple">Vegan</span>
+          @if ($recipe->vegan)
+            &#x2714;
+          @else
+            &#x2716;
+          @endif
+
         </div>
       </div>
       @endif
