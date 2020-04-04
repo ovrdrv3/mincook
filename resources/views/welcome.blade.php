@@ -16,12 +16,12 @@
         <p>
           We give special badges to: 
           <br>
-            <a class="" href="#"> recipes with ingredients already at home </a>
-          <br>
-            <a class="" href="#"> recipes with 5 or less ingredients </a>
+            {{-- <a > recipes with ingredients already at home </a> --}}
+          {{-- <br> --}}
+            <a class="special-recipe-item" href="/recipes/under5"> recipes with 5 or less ingredients </a>
         </p>
         <br>
-        <p><a class="" href="/recipes">browse recipies now</a></p>
+        <p><a class="" href="/recipes">browse all recipies</a></p>
       </div>
       </div>
   <footer class="pt-4 my-md-5 pt-md-5 border-top light-purple">

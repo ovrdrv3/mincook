@@ -15,3 +15,4 @@ yarn-error.log
 .env
 orig1.vue
 orig2.vue
+.DS_Store

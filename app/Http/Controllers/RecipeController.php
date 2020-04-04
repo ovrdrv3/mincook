@@ -19,6 +19,26 @@ class RecipeController extends Controller
         $this->middleware('auth')->except(['index', 'show']);
     }
 
+    private function prepare_view_data($recipesToModify)
+    {
+        foreach ($recipesToModify as $recipe) {
+            $all_images = json_decode($recipe->image);
+            // Just grab the first image in the array for display
+            $recipe->firstImage = $all_images[0];
+            $recipe->imageUrl = Storage::url('cover_images/' . $recipe->firstImage);
+            $count_of_spaces = substr_count($recipe->description, ' ');
+            if ($count_of_spaces > 20 ) {
+                // get the first 20 words of the description for the index
+                preg_match("/(?:\w+(?:\W+|$)){0,20}/", $recipe->description, $matches);
+                $recipe->short_description = $matches[0] . '...';
+            } else {
+                $recipe->short_description = $recipe->description;
+            }
+        }
+        
+        return $recipesToModify;
+    }
+
     public function store(Request $request)
     {
 
@@ -62,6 +82,7 @@ class RecipeController extends Controller
             'cook_time' => $request->input('cookTime'),
             'prep_time' => $request->input('prepTime'),
             'ingredients' => $request->input('ingredients'),
+            'ingredient_quantity' => $request->input('ingredientQuantity'),
             'instructions' => $request->input('instructions'),
             'image' => json_encode($all_cover_images)
         ]);
@@ -90,43 +111,27 @@ class RecipeController extends Controller
     public function index()
     {
         $recipes = Recipe::all();
-        foreach ($recipes as $recipe) {
-            $all_images = json_decode($recipe->image);
-            // Just grab the first image in the array for display
-            $recipe->firstImage = $all_images[0];
-            $recipe->imageUrl = Storage::url('cover_images/' . $recipe->firstImage);
-            $count_of_spaces = substr_count($recipe->description, ' ');
-            if ($count_of_spaces > 20 ) {
-                // get the first 20 words of the description for the index
-                preg_match("/(?:\w+(?:\W+|$)){0,20}/", $recipe->description, $matches);
-                $recipe->short_description = $matches[0] . '...';
-            } else {
-                $recipe->short_description = $recipe->description;
-            }
-        }
+        $recipes = $this->prepare_view_data($recipes);
+        $recipes->page_description = "all recipes";
         return view('recipes.index', compact('recipes'));
     }
 
-    public function userindex($user)
+    public function user_index($user)
     {
         $recipes = Recipe::all()->where('user_id', $user);
         $recipes->userName = User::find($user)->name;
-        foreach ($recipes as $recipe) {
-            $all_images = json_decode($recipe->image);
-            // Just grab the first image in the array for display
-            $recipe->firstImage = $all_images[0];
-            $recipe->imageUrl = Storage::url('cover_images/' . $recipe->firstImage);
-            $count_of_spaces = substr_count($recipe->description, ' ');
-            if ($count_of_spaces > 20 ) {
-                // get the first 20 words of the description for the index
-                preg_match("/(?:\w+(?:\W+|$)){0,20}/", $recipe->description, $matches);
-                $recipe->short_description = $matches[0] . '...';
-            } else {
-                $recipe->short_description = $recipe->description;
-            }
-        }
-        return view('recipes.userindex', compact('recipes'));
+        $recipes = $this->prepare_view_data($recipes);
+        $recipes->page_description = "recipes by " . $recipes->userName;
+        return view('recipes.index', compact('recipes'));
     }    
+
+    public function index_under_5()
+    {
+        $recipes = Recipe::all()->where('ingredient_quantity', '<=', 5);
+        $recipes = $this->prepare_view_data($recipes);
+        $recipes->page_description = 'all recipes with less than 5 ingredients';
+        return view('recipes.index', compact('recipes'));
+    }
 
     public function create()
     {
@@ -207,6 +212,7 @@ class RecipeController extends Controller
         $recipe->cook_time =  $request->input('cookTime');
         $recipe->prep_time =  $request->input('prepTime');
         $recipe->ingredients =  $request->input('ingredients');
+        $recipe->ingredient_quantity =  $request->input('ingredientQuantity');
         $recipe->instructions =  $request->input('instructions');
         $recipe->image =  $fileNameToStore;
 

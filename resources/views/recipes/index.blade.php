@@ -2,12 +2,16 @@
 
 @section('content')
 <div class="container my-5">
-  <h1 class="primary-font dark-purple">All Recipes</h1>
+  <h1 class="primary-font dark-purple">{{ $recipes->page_description}}</h1>
   <br>
   <div class="row">
   @foreach ($recipes as $recipe)
       <div class="col-md-4">
-        <div class="card mb-4 recipe-item">
+        @if ($recipe->ingredient_quantity <= 5)
+          <div class="card mb-4 special-recipe-item">
+        @else  
+          <div class="card mb-4 recipe-item">
+        @endif
           <img src="{{ $recipe->imageUrl }}" class="rounded" style="height: 300px; object-fit: cover;">
           <div class="card-body">
             <a href="/recipe/{{ $recipe->id }}">

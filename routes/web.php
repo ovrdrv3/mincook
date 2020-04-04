@@ -16,8 +16,11 @@ Route::get('/', function () {
 });
 Route::get('/create', 'RecipeController@create');
 Route::get('/recipes', 'RecipeController@index');
-Route::get('/recipes/{user}', 'RecipeController@userindex');
+Route::get('/recipes/under5', 'RecipeController@index_under_5');
+
+Route::get('/recipes/{user}', 'RecipeController@user_index');
 Route::get('/recipe/{id}', 'RecipeController@show');
+
 Route::post('/saverecipe', 'RecipeController@store');
 Route::post('/deleterecipe', 'RecipeController@delete');
 Route::get('/editrecipe/{id}', 'RecipeController@edit');

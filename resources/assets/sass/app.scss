@@ -106,6 +106,10 @@ p {
     padding-left: 20px;
 }
 
+.card {
+    border: 5px solid rgba(0, 0, 0, 0.125);
+}
+
 .section {
     background-color: $dark-green;
     margin: 0.5em auto;
@@ -161,9 +165,20 @@ p {
     // height: 150px;
 }
 
-.recipe-item:nth-child(2n) {
+.special-recipe-item {
     background-color: $dark-purple;
+    // font-size: 40px;
+    border-radius: 10px 10px 10px 10px;
+    // padding: 10px;
+    // margin: 10px;
+    // vertical-align: middle;
+    // line-height: 150px;
+    // height: 150px;
 }
+
+// .recipe-item:nth-child(2n) {
+//     background-color: $dark-purple;
+// }
 
 footer {
     /* same as dark purple */

@@ -280,6 +280,7 @@ export default {
       formData.append("description", this.recipe.description);
       formData.append("ingredients", JSON.stringify(this.recipe.ingredients));
       formData.append("instructions", JSON.stringify(this.recipe.instructions));
+      formData.append("ingredientQuantity", this.recipe.ingredients.length);
 
       // create POST Link - save or edit recipe?
       if (this.recipe.originalRecipe) {
