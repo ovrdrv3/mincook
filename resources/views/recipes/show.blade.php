@@ -35,7 +35,7 @@
 {{--           @foreach ($recipe->imageUrls as $imageUrl)
             <img src="{{ $imageUrl }}"  class="rounded img-fluid float-right mb-3">
           @endforeach --}}
-          <image-slider :images="{{$recipe->imageUrls}}" style="max-height: 800px; max-width: 800px;" class="rounded img-fluid mb-3"></image-slider>
+          <image-slider :images="{{$recipe->imageUrls}}" style="max-height: 800px;" class="rounded img-fluid mb-3"></image-slider>
         </div>
     </div>
       @else
