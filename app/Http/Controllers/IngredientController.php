@@ -18,6 +18,7 @@ class IngredientController extends Controller
     {
         $ingredient = Ingredient::find($id);
         $recipes = $ingredient->recipes;
+        $recipes->page_description = "all recipes with " . $ingredient->name;
         return view('recipes.index', compact('recipes'));
     }
 }

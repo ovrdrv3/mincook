@@ -263,6 +263,8 @@ class RecipeController extends Controller
                 Storage::delete('public/cover_images/' . $image);
             }
         }
+        // TODO after updating laravel to latest version, add code to delete related ingredients where App\Ingredient::doesntHave('recipes');
+        $recipe->ingredients()->detach();
         $recipe->delete();
         Session::flash('success', 'Successfully deleted recipe.');
         return redirect('recipes');
