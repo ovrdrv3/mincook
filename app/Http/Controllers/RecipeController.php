@@ -233,9 +233,10 @@ class RecipeController extends Controller
         return $recipe->path();
     }
 
-    public function show($id)
+    public function show(Recipe $recipe)
     {
-        $recipe = Recipe::find($id);
+        // return $recipe;
+        // $recipe = Recipe::find($id);
         $recipe->ingredients = json_decode($recipe->ingredients);
         $recipe->instructions = json_decode($recipe->instructions);
         $image_URL_staging = [];

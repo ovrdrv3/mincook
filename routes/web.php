@@ -19,7 +19,7 @@ Route::get('/recipes', 'RecipeController@index');
 Route::get('/recipes/under5', 'RecipeController@index_under_5');
 
 Route::get('/recipes/{user}', 'RecipeController@user_index');
-Route::get('/recipe/{id}', 'RecipeController@show');
+Route::get('/recipe/{recipe}-{slug}', 'RecipeController@show');
 
 Route::post('/saverecipe', 'RecipeController@store');
 Route::post('/deleterecipe', 'RecipeController@delete');

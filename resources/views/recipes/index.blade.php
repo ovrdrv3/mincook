@@ -14,7 +14,7 @@
         @endif
           <img src="{{ $recipe->imageUrl }}" class="rounded" style="height: 300px; object-fit: cover;">
           <div class="card-body">
-            <a href="/recipe/{{ $recipe->id }}">
+            <a href="{{ $recipe->path() }}">
               <h4 class="light-purple">{{ $recipe->name }}</h4>
             </a>
             <small class="text-small light-purple">{{ $recipe->short_description }}</small>
