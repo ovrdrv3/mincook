@@ -109,6 +109,10 @@
       <div class="col mb-3">
         <a href="/editrecipe/{{$recipe->id}}">Edit this recipe?</a>
       </div>
+      <br>
+      <div class="col mb-3">
+        <a href="/deleterecipe/{{$recipe->id}}">Delete this recipe?</a>
+      </div>
     @endif
 
   </div>

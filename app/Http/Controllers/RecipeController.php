@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Validator;
-use Illuminate\Http\Request;
 use App\User;
+use Validator;
 use App\Recipe;
 use App\Ingredient;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
@@ -252,5 +253,18 @@ class RecipeController extends Controller
 
         // dd($recipe->decodedIngredients);
         return view('recipes.show', compact('recipe'));
+    }
+
+    public function delete(Recipe $recipe)
+    {
+        $all_images = json_decode($recipe->image);
+        if ($all_images[0] != "noimage.jpg"){
+            foreach ($all_images as $image) {
+                Storage::delete('public/cover_images/' . $image);
+            }
+        }
+        $recipe->delete();
+        Session::flash('success', 'Successfully deleted recipe.');
+        return redirect('recipes');
     }
 }

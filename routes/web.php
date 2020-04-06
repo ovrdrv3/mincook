@@ -22,9 +22,9 @@ Route::get('/recipes/{user}', 'RecipeController@user_index');
 Route::get('/recipe/{recipe}-{slug}', 'RecipeController@show');
 
 Route::post('/saverecipe', 'RecipeController@store');
-Route::post('/deleterecipe', 'RecipeController@delete');
 Route::get('/editrecipe/{id}', 'RecipeController@edit');
 Route::patch('/editrecipe/{id}', 'RecipeController@update');
+Route::get('/deleterecipe/{recipe}', 'RecipeController@delete');
 
 Route::get('/ingredients', 'IngredientController@index');
 Route::get('/ingredient/{id}', 'IngredientController@show');
