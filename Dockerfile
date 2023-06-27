@@ -44,6 +44,8 @@ RUN if grep -Fq "laravel/octane" /var/www/html/composer.json; then \
 # This allows us to not include Node within the final container
 FROM node:${NODE_VERSION} as node_modules_go_brrr
 
+RUN npm install -g npm@9
+
 RUN mkdir /app
 
 RUN mkdir -p  /app
