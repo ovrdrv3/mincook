@@ -7,8 +7,10 @@ minimum cook project - crowdsourced recipe site
 - composer install
 - php artisan key:generate
 - php artisan migrate
-- npm install
+- nvm install 9
+- npm install --legacy-peer-deps
 - npm run dev
+- php artisan serve
 
 # Getting photos saved using symlink
 - php artisan storage:link
